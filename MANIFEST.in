@@ -1,0 +1,4 @@
+include *.rst
+graft src/sandboxlib
+graft docs
+global-exclude *.pyc
