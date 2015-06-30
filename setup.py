@@ -1,44 +1,58 @@
-import os
-import sys
+# -*- coding: utf-8 -*-
+"""Installer for the collective.sandboxlib package."""
 
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
-version = '0.1dev0'
+
+long_description = (
+    open('README.rst').read()
+    + '\n' +
+    'Contributors\n'
+    '============\n'
+    + '\n' +
+    open('CONTRIBUTORS.rst').read()
+    + '\n' +
+    open('CHANGES.rst').read()
+    + '\n')
 
 
 setup(
     name='sandboxlib',
-    version=version,
-    description="sandboxlib whitelists a number of python functions for use "
-                "in restrictedPython",
-    long_description=(open("README.rst").read() + "\n" +
-                      open("CHANGES.rst").read()),
+    version='0.1',
+    description="A suite of tools whitelisted for using with restricted "
+                "Python.",
+    long_description=long_description,
+    # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Framework :: Plone',
-        'Framework :: Zope2',
-        'Framework :: Zope3',
-        'Environment :: Console',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Topic :: Utilities',
+        "Environment :: Web Environment",
+        "Framework :: Plone",
+        "Framework :: Plone :: 4.3.6",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
     ],
-    keywords='Plone sandboxlib',
+    keywords='Python Plone',
     author='Jon Pentland',
     author_email='jon@iomedia.co.uk',
-    url='https://github.com/collective/sandboxlib',
+    url='http://pypi.python.org/pypi/sandboxlib',
     license='GPL',
-    package_dir={'': 'src'},
     packages=find_packages('src', exclude=['ez_setup']),
+    package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
-    test_suite='i18ndude.tests',
     install_requires=[
-
-    ]
-    entry_points={
-
+        'setuptools',
+        'z3c.jbot',
+    ],
+    extras_require={
+        'test': [
+            'plone.app.testing',
+            'plone.app.contenttypes',
+            'plone.app.robotframework[debug]',
+        ],
     },
+    entry_points="""
+    [z3c.autoinclude.plugin]
+    target = plone
+    """,
 )
