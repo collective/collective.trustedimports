@@ -14,7 +14,8 @@ It is designed to be a single download to give your zope/plone instance access t
 Contents
 --------
 
-Currently support librires which can use used without modification are
+Currently support librires which can use used without modification are:
+
 - email.mime
 
 
