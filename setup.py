@@ -32,8 +32,8 @@ setup(
         "Programming Language :: Python :: 2.7",
     ],
     keywords='Python Plone',
-    author='Jon Pentland',
-    author_email='jon@iomedia.co.uk',
+    author='PretaGov',
+    author_email='software@pretaweb.com',
     url='http://pypi.python.org/pypi/sandboxlib',
     license='GPL',
     packages=find_packages('src', exclude=['ez_setup']),
@@ -42,13 +42,12 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'z3c.jbot',
     ],
     extras_require={
         'test': [
-            'plone.app.testing',
-            'plone.app.contenttypes',
-            'plone.app.robotframework[debug]',
+#            'plone.app.testing',
+#            'plone.app.contenttypes',
+#            'plone.app.robotframework[debug]',
         ],
     },
     entry_points="""
