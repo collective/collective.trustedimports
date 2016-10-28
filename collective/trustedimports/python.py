@@ -24,7 +24,13 @@ allow_type(type(re.match('x', 'x')))
 allow_module('random')
 #z3
 import random
-defineChecker(random, NamesChecker(['uniform','shuffle']))
+#defineChecker(random, NamesChecker(['uniform','shuffle']))
+defineChecker(random, NamesChecker([meth for meth in dir(random) if meth[0] != '_']))
+import time, datetime
+defineChecker(time, NamesChecker([meth for meth in dir(time) if meth[0] != '_']))
+defineChecker(datetime, NamesChecker([meth for meth in dir(datetime) if meth[0] != '_']))
+
+
 
 # Itertools
 allow_module('itertools')
