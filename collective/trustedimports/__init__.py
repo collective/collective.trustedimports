@@ -10,12 +10,3 @@ import python
 import plone
 
 
-
-
-#TODO: Doesn't belong in this package
-# Whitelist pdf functions
-allow_module('pretaweb.plomino2pdf.api')
-pdf_api = ModuleSecurityInfo('pretaweb.plomino2pdf.api')
-pdf_api.declarePublic('generate_pdf')
-
-

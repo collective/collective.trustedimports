@@ -13,13 +13,34 @@ from zope.interface import Interface
 import doctest
 import unittest
 
+_ms_before = None
+_ams_before = None
 
 def setUp(test=None):
     testing.setUp()
-#    eventtesting.setUp()
 
-#    provideAdapter(persistentFieldAdapter)
-#    provideAdapter(choicePersistentFieldAdapter)
+    # PythonScripts
+    from AccessControl import ModuleSecurityInfo as MSI
+    from AccessControl.SecurityInfo import _moduleSecurity
+    from AccessControl.SecurityInfo import _appliedModuleSecurity
+    _ms_before = _moduleSecurity.copy()
+    _ams_before = _appliedModuleSecurity.copy()
+    MSI('string').declarePublic('split')
+    MSI('sets').declarePublic('Set')
+    newSecurityManager(None, None)
+
+def teardown(test=None):
+    testing.tearDown()
+
+    # PythonScripts
+    from AccessControl.SecurityInfo import _moduleSecurity
+    from AccessControl.SecurityInfo import _appliedModuleSecurity
+    noSecurityManager()
+    _moduleSecurity.clear()
+    _moduleSecurity.update(_ms_before)
+    _appliedModuleSecurity.clear()
+    _appliedModuleSecurity.update(_ams_before)
+
 
 
 class Test_Interpreter(unittest.TestCase):
@@ -123,15 +144,24 @@ class TestPythonScriptNoAq(PythonScriptTestBase):
         self.assertEqual(res, 'txt')
 
 
+def teval(txt, bind=None):
+    ps = VerifiedPythonScript('ps')
+    ps.ZBindings_edit(bind or {})
+    ps.write(txt)
+    ps._makeFunction()
+    if ps.errors:
+        raise SyntaxError, ps.errors[0]
+    return ps()
 
 
 def test_suite():
     return unittest.TestSuite([
         doctest.DocFileSuite(
             'zip.rst',
-            package='plone.registry',
+            package='collective.trustedimports',
             optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
             setUp=setUp,
-            tearDown=testing.tearDown
+            tearDown=testing.tearDown,
+            globs=dict(teval=teval),
         ),
     ])

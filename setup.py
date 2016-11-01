@@ -40,9 +40,9 @@ setup(
     author_email='software@pretaweb.com',
     url='http://pypi.python.org/pypi/restrictedpytonlib',
     license='GPL',
-    packages=find_packages('collective.trustedimports', exclude=['ez_setup']),
-#    namespace_packages = ['collective'],
-    package_dir={'': '.'},
+    packages=find_packages(),
+    namespace_packages = ['collective'],
+    #package_dir={'': '.'},
     include_package_data=True,
     zip_safe=False,
     install_requires=[

@@ -18,7 +18,7 @@ a secure way.
 It is designed to be a single download to give your zope/plone instance access
 to a lot more power TTW from tools such as
 Plomino, PloneFormGen, collective.listingviews and other addons that allow
-    power plone development.
+power plone development.
 
 Contents
 --------
