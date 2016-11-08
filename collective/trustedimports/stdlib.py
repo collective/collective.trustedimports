@@ -12,7 +12,7 @@ from zope.security.checker import defineChecker, CheckerPublic, NamesChecker
 # Allow RE in restricted python. Based on collective.localfunctions
 # by Steve McMahon
 import re
-allow_module('re')
+#allow_module('re')
 ModuleSecurityInfo('re').declarePublic(
     'compile', 'findall', 'match', 'search', 'split', 'sub', 'subn', 'error',
     'I', 'L', 'M', 'S', 'X')
@@ -26,6 +26,18 @@ allow_module('random')
 import random
 #defineChecker(random, NamesChecker(['uniform','shuffle']))
 defineChecker(random, NamesChecker([meth for meth in dir(random) if meth[0] != '_']))
+allow_class(random.SystemRandom)
+
+
+# UUID
+
+#allow_module('uuid')
+import uuid
+allow_class(uuid.UUID)
+ModuleSecurityInfo('uuid').declarePublic(
+    'uuid1', 'uuid2', 'uuid3', 'uuid4', 'uuid5')
+
+
 
 # Extension class so can't be supported
 # import datetime
@@ -35,6 +47,8 @@ defineChecker(random, NamesChecker([meth for meth in dir(random) if meth[0] != '
 
 #defineChecker(time, NamesChecker([meth for meth in dir(time) if meth[0] != '_']))
 #allow_module('time')
+
+
 
 
 # Itertools

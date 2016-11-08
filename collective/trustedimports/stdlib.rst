@@ -17,6 +17,19 @@ Random
 0...
 
 
+>>> teval("return '-'.join(random.SystemRandom().choice(string.ascii_uppercase) for _ in range(3))")
+'...-...-...'
+
+
+UUID
+----
+
+>>> teval("import uuid; return uuid.uuid4()")
+UUID('...-...-...-...-...')
+
+>>> teval("import uuid; return str(uuid.uuid1().get_hex().upper()[0:6])")
+'...'
+
 Itertools
 ---------
 
