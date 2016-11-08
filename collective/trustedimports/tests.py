@@ -157,11 +157,19 @@ def teval(txt, bind=None):
 def test_suite():
     return unittest.TestSuite([
         doctest.DocFileSuite(
-            'zip.rst',
+            'stdlib.rst',
             package='collective.trustedimports',
             optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
             setUp=setUp,
             tearDown=testing.tearDown,
             globs=dict(teval=teval),
         ),
+        # doctest.DocFileSuite(
+        #     'safezipfile.rst',
+        #     package='collective.trustedimports',
+        #     optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
+        #     setUp=setUp,
+        #     tearDown=testing.tearDown,
+        #     globs=dict(teval=teval),
+        # ),
     ])

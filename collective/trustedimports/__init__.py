@@ -5,8 +5,8 @@ from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 #import csv
 import email
-import zip
-import python
+import safezipfile
+import stdlib
 import plone
 
 
