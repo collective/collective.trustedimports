@@ -26,11 +26,37 @@ allow_module('random')
 import random
 #defineChecker(random, NamesChecker(['uniform','shuffle']))
 defineChecker(random, NamesChecker([meth for meth in dir(random) if meth[0] != '_']))
-import time, datetime
-defineChecker(time, NamesChecker([meth for meth in dir(time) if meth[0] != '_']))
-defineChecker(datetime, NamesChecker([meth for meth in dir(datetime) if meth[0] != '_']))
 
+# Extension class so can't be supported
+# import datetime
+# defineChecker(datetime, NamesChecker([meth for meth in dir(datetime) if meth[0] != '_']))
+# allow_module('datetime')
+# allow_class(datetime.datetime)
+
+#defineChecker(time, NamesChecker([meth for meth in dir(time) if meth[0] != '_']))
+#allow_module('time')
 
 
 # Itertools
 allow_module('itertools')
+
+
+# CSV
+
+allow_module('csv')
+import csv
+allow_class(csv.DictReader)
+allow_class(csv.DictWriter)
+allow_class(csv.Dialect)
+allow_class(csv.excel)
+allow_class(csv.excel_tab)
+allow_class(csv.Sniffer)
+
+
+# StringIO
+
+allow_module('StringIO')
+import StringIO
+allow_class(StringIO.StringIO)
+
+allow_module('cStringIO')
