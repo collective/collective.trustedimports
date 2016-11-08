@@ -74,3 +74,5 @@ import StringIO
 allow_class(StringIO.StringIO)
 
 allow_module('cStringIO')
+# import cStringIO
+# allow_type(type(cStringIO.StringIO()))

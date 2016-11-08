@@ -2,7 +2,7 @@ from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 from zipfile import ZipFile as _ZipFile, ZIP_STORED, ZipInfo
-
+#from exceptions import NotImplementedError
 
 
 class SafeZipFile(_ZipFile):
@@ -12,7 +12,7 @@ class SafeZipFile(_ZipFile):
         if not isinstance(file, basestring):
             return _ZipFile.__init__(self, file, mode, compression, allowZip64)
         else:
-            raise NotImplemented("Paths not supported by SafeZipFile")
+            raise NotImplementedError("Paths not supported by SafeZipFile")
 
     def extract(self, member, path=None, pwd=None):
         """Extract a member from the archive to the current working directory,
@@ -20,7 +20,7 @@ class SafeZipFile(_ZipFile):
            as possible. `member' may be a filename or a ZipInfo object. You can
            specify a different directory using `path'.
         """
-        raise NotImplemented("Paths not supported by SafeZipFile")
+        raise NotImplementedError("Paths not supported by SafeZipFile")
 
     def extractall(self, path=None, members=None, pwd=None):
         """Extract all members from the archive to the current working
@@ -28,12 +28,15 @@ class SafeZipFile(_ZipFile):
            `members' is optional and must be a subset of the list returned
            by namelist().
         """
-        raise NotImplemented("Paths not supported by SafeZipFile")
+        raise NotImplementedError("Paths not supported by SafeZipFile")
 
     def write(self, filename, arcname=None, compress_type=None):
         """Put the bytes from filename into the archive under the name
         arcname."""
-        raise NotImplemented("Paths not supported by SafeZipFile")
+        raise NotImplementedError("Paths not supported by SafeZipFile")
+
+
+ModuleSecurityInfo('collective.trustedimports.safezipfile').declarePublic('SafeZipFile')
 
 allow_class(SafeZipFile)
 ModuleSecurityInfo('zipfile').declarePublic('ZIP64_LIMIT',

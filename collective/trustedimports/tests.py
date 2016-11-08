@@ -164,12 +164,12 @@ def test_suite():
             tearDown=testing.tearDown,
             globs=dict(teval=teval),
         ),
-        # doctest.DocFileSuite(
-        #     'safezipfile.rst',
-        #     package='collective.trustedimports',
-        #     optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-        #     setUp=setUp,
-        #     tearDown=testing.tearDown,
-        #     globs=dict(teval=teval),
-        # ),
+        doctest.DocFileSuite(
+            'safezipfile.rst',
+            package='collective.trustedimports',
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
+            setUp=setUp,
+            tearDown=testing.tearDown,
+            globs=dict(teval=teval),
+        ),
     ])
