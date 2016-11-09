@@ -13,3 +13,5 @@ eggs
 fake-eggs
 parts
 var
+include
+lib
