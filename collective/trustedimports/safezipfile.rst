@@ -4,7 +4,7 @@ Zip
 When used in RestrictedPython we can still use ZipFile
 
 >>> teval("from zipfile import ZipFile; from StringIO import StringIO; return ZipFile(StringIO(),'w')")
-<collective.trustedimports.safezipfile.SafeZipFile instance at ...>
+<collective.trustedimports.safezipfile.SafeZipFile ... at ...>
 
 
 but we can't use it to open files on the disk
