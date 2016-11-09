@@ -1,8 +1,5 @@
-sandboxlib
-==========
-
-.. contents::
-
+collective.trustedimports
+=========================
 
 Introduction
 ------------
@@ -23,9 +20,14 @@ power plone development.
 Contents
 --------
 
-Currently support librires which can use used without modification are:
+Currently support libraries which can use used without modification are:
 
-- email.mime: To allow sending email with attachments and HTML
-- M2Crypto: allowing encrypting and signing of mail messages via smime
+- [stdlib supported](collective/trustedimports/stdlib.rst)
+- [zipfile supported](collective/trustedimports/safezipfile.rst)
+- [M2Crypto and email](collective/trustedimports/email.rst)
+- [some zope/plone libraries](collective/trustedimports/plone.rst)
 
-
+Contribute
+----------
+If you think another library should be be made importable contribute on
+[github](https://github.com/collective/collective.trustedimports)

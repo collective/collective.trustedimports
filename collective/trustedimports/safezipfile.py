@@ -4,7 +4,6 @@ from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo, Un
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 from zipfile import ZipFile as _ZipFile, ZIP_STORED, ZipInfo
-#from exceptions import NotImplementedError
 
 def restricted_python_call():
     # HACK: must be a better way to do this
