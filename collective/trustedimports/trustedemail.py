@@ -24,7 +24,12 @@ ModuleSecurityInfo('email.encoders').declarePublic(
     'encode_base64',
     'encode_noop',
     'encode_quopri')
-import email.encoders
+allow_module('email.utils')
+allow_module('email.errors')
+allow_module('email.charset')
+allow_module('email.header')
+allow_module('email.generator')
+allow_module('email.parser')
 
 # Whitelist M2Crypto encrypting
 try:
