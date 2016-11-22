@@ -5,16 +5,26 @@ from Products.PythonScripts.Utility import allow_module
 
 # Whitelist email functions
 allow_module('email.mime.multipart')
-multipart = ModuleSecurityInfo('email.mime.multipart')
-multipart.declarePublic('MIMEMultipart')
+ModuleSecurityInfo('email.mime.multipart').declarePublic('MIMEMultipart')
+
 allow_module('email.mime.text')
-text = ModuleSecurityInfo('email.mime.text')
-text.declarePublic('MIMEMultipart')
+ModuleSecurityInfo('email.mime.text').declarePublic('MIMEText')
+
 allow_module('email.mime.application')
-application = ModuleSecurityInfo('email.mime.application')
-application.declarePublic('MIMEApplication')
+ModuleSecurityInfo('email.mime.application').declarePublic('MIMEApplication')
 
-
+allow_module('email.mime.base')
+ModuleSecurityInfo('email.mime.base').declarePublic('MIMEBase')
+import email.mime.base
+allow_class(email.mime.base.MIMEBase)
+allow_module('email.encoders')
+ModuleSecurityInfo('email').declarePublic('encoders')
+ModuleSecurityInfo('email.encoders').declarePublic(
+    'encode_7or8bit',
+    'encode_base64',
+    'encode_noop',
+    'encode_quopri')
+import email.encoders
 
 # Whitelist M2Crypto encrypting
 try:

@@ -172,4 +172,12 @@ def test_suite():
             tearDown=testing.tearDown,
             globs=dict(teval=teval),
         ),
+        doctest.DocFileSuite(
+            'trustedemail.rst',
+            package='collective.trustedimports',
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
+            setUp=setUp,
+            tearDown=testing.tearDown,
+            globs=dict(teval=teval),
+        ),
     ])

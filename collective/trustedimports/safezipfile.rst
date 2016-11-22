@@ -15,12 +15,14 @@ Traceback (most recent call last):
 Unauthorized: Not supported by SafeZipFile in this context
 
 or use it to extract files to disk
+
 >>> teval("from zipfile import ZipFile; from StringIO import StringIO; ZipFile(StringIO(),'w').extractall()")
 Traceback (most recent call last):
 ...
 Unauthorized: Not supported by SafeZipFile in this context
 
 We can still use it when not in a PythonScript
+
 >>> import zipfile; zipfile.ZipFile('myfile.zip')
 Traceback (most recent call last):
 ...

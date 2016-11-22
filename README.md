@@ -24,7 +24,7 @@ Currently support libraries which can use used without modification are:
 
 - [stdlib supported](collective/trustedimports/stdlib.rst)
 - [zipfile supported](collective/trustedimports/safezipfile.rst)
-- [M2Crypto and email](collective/trustedimports/email.rst)
+- [M2Crypto and email](collective/trustedimports/trustedemail.rst)
 - [some zope/plone libraries](collective/trustedimports/plone.rst)
 
 Contribute
