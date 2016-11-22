@@ -8,5 +8,6 @@ import safezipfile
 import stdlib
 import plone
 import pystache
+import defusedxml
 
 
