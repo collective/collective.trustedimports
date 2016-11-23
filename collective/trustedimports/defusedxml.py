@@ -1,5 +1,4 @@
 from AccessControl import ModuleSecurityInfo
-from AccessControl import allow_class
 
 try:
     import defusedxml
