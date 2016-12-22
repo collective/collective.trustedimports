@@ -55,9 +55,10 @@ setup(
     ],
     extras_require={
         'test': [
-#            'plone.app.testing',
-#            'plone.app.contenttypes',
-#            'plone.app.robotframework[debug]',
+            'defusedxml',
+            'collective.taskqueue',
+            'pystache',
+            'M2Crypto'
         ],
     },
     entry_points="""
