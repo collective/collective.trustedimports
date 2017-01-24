@@ -76,3 +76,9 @@ allow_class(StringIO.StringIO)
 allow_module('cStringIO')
 # import cStringIO
 # allow_type(type(cStringIO.StringIO()))
+
+# time
+ModuleSecurityInfo('time').declarePublic('time')
+
+# formatdate
+ModuleSecurityInfo('email.Utils').declarePublic('formatdate')
