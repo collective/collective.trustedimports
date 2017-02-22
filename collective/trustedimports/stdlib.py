@@ -38,6 +38,11 @@ ModuleSecurityInfo('uuid').declarePublic(
     'uuid1', 'uuid2', 'uuid3', 'uuid4', 'uuid5')
 
 
+# Base64 Encode/Decode
+import base64
+allow_class(base64.b64encode)
+allow_class(base64.b64decode)
+ModuleSecurityInfo('base64').declarePublic('b64encode', 'b64decode')
 
 # Extension class so can't be supported
 # import datetime
