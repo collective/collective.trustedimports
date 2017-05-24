@@ -2,7 +2,7 @@ from AccessControl import allow_type
 from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
-from zope.security.checker import defineChecker, CheckerPublic, NamesChecker
+from zope.security.checker import defineChecker, CheckerPublic, NamesChecker, selectChecker
 
 # Basic python libs
 
@@ -25,7 +25,8 @@ allow_module('random')
 #z3
 import random
 #defineChecker(random, NamesChecker(['uniform','shuffle']))
-defineChecker(random, NamesChecker([meth for meth in dir(random) if meth[0] != '_']))
+if selectChecker(random) is None:
+    defineChecker(random, NamesChecker([meth for meth in dir(random) if meth[0] != '_']))
 allow_class(random.SystemRandom)
 
 
