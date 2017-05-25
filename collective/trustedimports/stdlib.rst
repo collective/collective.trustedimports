@@ -62,6 +62,14 @@ CSV
 >>> print teval("""import csv; import StringIO; return list(csv.reader(StringIO.StringIO('"A","B","C"\\n1,2,3')))""")
 [['A', 'B', 'C'], ['1', '2', '3']]
 
+
+Time
+----
+#>>> print teval('from time import strptime; return strptime("30 Nov 00", "%d %b %y")')
+#time.struct_time(tm_year=2000, tm_mon=11, tm_mday=30, tm_hour=0, tm_min=0,
+#                 tm_sec=0, tm_wday=3, tm_yday=335, tm_isdst=-1)
+
+
 Os (not supported)
 ------------------
 
@@ -69,3 +77,4 @@ Os (not supported)
 Traceback (most recent call last):
 ...
 Unauthorized: import of 'os' is unauthorized
+

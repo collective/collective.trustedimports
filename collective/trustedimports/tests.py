@@ -151,6 +151,8 @@ def teval(txt, bind=None):
     ps._makeFunction()
     if ps.errors:
         raise SyntaxError, ps.errors[0]
+
+    #TODO: test with untrusted python and raise error if results differ
     return ps()
 
 
