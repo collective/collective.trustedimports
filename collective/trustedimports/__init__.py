@@ -3,7 +3,7 @@
 import trustedemail
 import safezipfile
 import stdlib
-import plone
+import plonelib
 import pystache
 import defusedxml
 
