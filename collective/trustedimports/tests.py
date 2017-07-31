@@ -159,6 +159,14 @@ def teval(txt, bind=None):
 def test_suite():
     return unittest.TestSuite([
         doctest.DocFileSuite(
+            'plonelib.rst',
+            package='collective.trustedimports',
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
+            setUp=setUp,
+            tearDown=testing.tearDown,
+            globs=dict(teval=teval),
+        ),
+        doctest.DocFileSuite(
             'stdlib.rst',
             package='collective.trustedimports',
             optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
