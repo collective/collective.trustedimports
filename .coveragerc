@@ -1,0 +1,7 @@
+[report]
+include =
+    collective/*
+omit =
+    */tests.py
+    collective/__init__.py
+    *.rst

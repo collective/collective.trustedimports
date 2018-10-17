@@ -15,3 +15,5 @@ parts
 var
 include
 lib
+pip-selfcheck.json
+

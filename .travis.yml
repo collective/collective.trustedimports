@@ -16,10 +16,10 @@ before_install:
   - pip install --global-option=build_ext --global-option="-I/usr/local/opt/openssl/include" m2crypto
 install:
   - sed -ie "s#test-5.1#test-$PLONE_VERSION#" travis.cfg
-  - bin/buildout -c travis.cfg
+  - buildout -c travis.cfg
 script:
   - bin/coverage run bin/test
 after_success:
   - bin/coveralls
 after_failure:
-  - bin/buildout -c travis.cfg annotate
+  - buildout -c travis.cfg annotate
