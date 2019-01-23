@@ -1,9 +1,25 @@
 language: python
 python:
   - 2.7
+cache:
+  pip: true
+  directories:
+    - eggs
+env:
+  - PLONE_VERSION=4.3
+  - PLONE_VERSION=5.0
+  - PLONE_VERSION=5.1
+before_install:
+  - if [ $PLONE_VERSION == 4.3 ]; then pip install --upgrade setuptools==26.1.1 zc.buildout==2.9.5 six==1.10.0; fi
+  - if [ $PLONE_VERSION == 5.0 ]; then pip install -r https://raw.githubusercontent.com/plone/buildout.coredev/5.0/requirements.txt; fi
+  - if [ $PLONE_VERSION == 5.1 ]; then pip install -r https://raw.githubusercontent.com/plone/buildout.coredev/5.1/requirements.txt; fi
+  - pip install --global-option=build_ext --global-option="-I/usr/local/opt/openssl/include" m2crypto
 install:
-  - python bootstrap.py
-  - bin/buildout -N -q
-script: bin/test
+  - sed -ie "s#test-5.1#test-$PLONE_VERSION#" travis.cfg
+  - buildout -c travis.cfg
+script:
+  - bin/coverage run bin/test
+after_success:
+  - bin/coveralls
 after_failure:
-  - bin/buildout annotate
+  - buildout -c travis.cfg annotate
