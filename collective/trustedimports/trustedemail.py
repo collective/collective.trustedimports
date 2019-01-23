@@ -30,6 +30,7 @@ allow_module('email.charset')
 allow_module('email.header')
 allow_module('email.generator')
 allow_module('email.parser')
+allow_module('phonenumbers')
 
 # Whitelist M2Crypto encrypting
 try:
