@@ -6,32 +6,16 @@
 
     <include package=".stdlib"  />
 
-    <include zcml:condition="have email">
-          <include package=".trustedemail"  />
-    </include>
+    <include zcml:condition="installed email" package=".trustedemail"  />
+    <include zcml:condition="installed zipfile" package=".safezipfile"  />
 
-    <include zcml:condition="have zipfile">
-          <include package=".zipfile"  />
-    </include>
+      <!-- ensure plones loading happens first -->
+      <include zcml:condition="installed Plone" package="Plone" file="meta.zcml" />
+      <include zcml:condition="installed Plone" package=".plonelib"  />
 
-    <include zcml:condition="have Plone">
-          <!-- ensure plones loading happens first -->
-          <include package="Plone" file="meta.zcml" />
-          <include package=".plonelib"  />
-    </include>
-
-    <include zcml:condition="have defusedxml">
-          <include package=".defusedxml"  />
-    </include>
-
-
-    <include zcml:condition="have pystache">
-          <include package=".pystache"  />
-    </include>
-
-    <include zcml:condition="have phonenumbers">
-          <include package=".phonenumbers"  />
-    </include>
+    <include zcml:condition="installed defusedxml" package=".defusedxml"  />
+    <include zcml:condition="installed pystache" package=".pystache"  />
+    <include zcml:condition="installed phonenumbers" package=".phonenumbers"  />
 
 
 </configure>
