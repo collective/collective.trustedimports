@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Installer for the collective.sandboxlib package."""
+"""Installer for the collective.trsutedimports package."""
 
 from setuptools import find_packages
 from setuptools import setup
@@ -38,7 +38,7 @@ setup(
     keywords='Python Plone',
     author='PretaGov',
     author_email='software@pretaweb.com',
-    url='http://pypi.python.org/pypi/restrictedpytonlib',
+    url='http://pypi.python.org/pypi/trustedimports',
     license='GPL',
     packages=find_packages(),
     namespace_packages = ['collective'],

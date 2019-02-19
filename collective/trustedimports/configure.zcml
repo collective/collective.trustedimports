@@ -1,0 +1,37 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="collective.trustedimports">
+
+    <include package=".stdlib"  />
+
+    <include zcml:condition="have email">
+          <include package=".trustedemail"  />
+    </include>
+
+    <include zcml:condition="have zipfile">
+          <include package=".zipfile"  />
+    </include>
+
+    <include zcml:condition="have Plone">
+          <!-- ensure plones loading happens first -->
+          <include package="Plone" file="meta.zcml" />
+          <include package=".plonelib"  />
+    </include>
+
+    <include zcml:condition="have defusedxml">
+          <include package=".defusedxml"  />
+    </include>
+
+
+    <include zcml:condition="have pystache">
+          <include package=".pystache"  />
+    </include>
+
+    <include zcml:condition="have phonenumbers">
+          <include package=".phonenumbers"  />
+    </include>
+
+
+</configure>
