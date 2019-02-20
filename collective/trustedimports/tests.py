@@ -1,4 +1,5 @@
 from Products.PythonScripts.tests.testPythonScript import VerifiedPythonScript, readf
+from zope.configuration import xmlconfig
 from zope.untrustedpython import interpreter, rcompile
 from zope.untrustedpython.builtins import SafeBuiltins
 
@@ -12,6 +13,7 @@ from zope.component import testing
 from zope.interface import Interface
 import doctest
 import unittest
+import collective.trustedimports
 
 _ms_before = None
 _ams_before = None
@@ -28,6 +30,8 @@ def setUp(test=None):
     MSI('string').declarePublic('split')
     MSI('sets').declarePublic('Set')
     newSecurityManager(None, None)
+    xmlconfig.file('configure.zcml', collective.trustedimports, ) #context=configurationContext)
+
 
 def teardown(test=None):
     testing.tearDown()

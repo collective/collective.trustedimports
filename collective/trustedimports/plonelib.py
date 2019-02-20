@@ -30,8 +30,8 @@ list_checker = NamesChecker(['__call__','__init__','__getitem__', '__getslice__'
                         '__add__', '__radd__','__setitem__' ])
 persistent.list.PersistentList.__Security_checker__ = list_checker
 
-#defineChecker(persistent.dict.PersistentDict,             )
-#defineChecker(persistent.list.PersistentList,
+defineChecker(persistent.dict.PersistentDict,             )
+defineChecker(persistent.list.PersistentList,
 
 
 #TODO: move into taskqueue

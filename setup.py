@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Installer for the collective.sandboxlib package."""
+"""Installer for the collective.trsutedimports package."""
 
 from setuptools import find_packages
 from setuptools import setup
@@ -19,7 +19,7 @@ long_description = (
 
 setup(
     name='collective.trustedimports',
-    version='0.1',
+    version='0.2dev',
     description="RestrictedPython provides a restricted execution environment "
                 "for Python, e.g. for running untrusted code. This package "
                 "allows a number of trusted modules to run in this restricted "
@@ -38,7 +38,7 @@ setup(
     keywords='Python Plone',
     author='PretaGov',
     author_email='software@pretaweb.com',
-    url='http://pypi.python.org/pypi/restrictedpytonlib',
+    url='http://pypi.python.org/pypi/trustedimports',
     license='GPL',
     packages=find_packages(),
     namespace_packages = ['collective'],
