@@ -17,6 +17,18 @@ to a lot more power TTW from tools such as
 Plomino, PloneFormGen, collective.listingviews and other addons that allow
 power plone development.
 
+Usage
+-----
+
+This module is loaded using z3c.autoinclude so in plone this will be handled 
+automatically. In other python code you may need to manually import the particular
+module to initialise that additional security declarations e.g.
+
+```python
+import collective.trustedimports.pystache
+
+```
+
 Contents
 --------
 
@@ -45,10 +57,14 @@ How to whitelist a module
    - allow setting arbitrary attributes of passed in objects?
    
 3. Find a place in trusedimports for your whitelist. e.g. [stdlib.py](collective/trustedimports/stdlib.py)
+   or add an additional file. Ensure this file is included in ```configure.zcml```. If you are whitelisting
+   a pypi package it should go into its own file and conditions in ```configure.zcml``` so
+   there are no errors when that package is not available.
 
 4. Add your whitelist
    - e.g. ```whitelist_module(module='base64', classes=['b64encode', 'b64decode'])```
-   - Only whitelist functions that are safe.
+   - Only whitelist functions that are safe. For example never whitelist functions that access
+     local file system files.
    - you can use our [convenience function](https://github.com/collective/collective.trustedimports/blob/master/collective/trustedimports/util.py#L9) to handle whitelisting in both zope.security and Products.PythonScripts at the same time (there are two different systems of restricted python).
    - If what you want to whitelist does include unsafe calls such as access to the filesystem, there are [ways to monkey patch to make it safe](https://github.com/collective/collective.trustedimports/blob/master/collective/trustedimports/safezipfile.py#L58)
    - Don't contribute convinience functions. The goal of trustedimports is how you use the module should remain unchanged.
