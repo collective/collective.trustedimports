@@ -19,7 +19,7 @@ long_description = (
 
 setup(
     name='collective.trustedimports',
-    version='0.1',
+    version='0.2dev',
     description="RestrictedPython provides a restricted execution environment "
                 "for Python, e.g. for running untrusted code. This package "
                 "allows a number of trusted modules to run in this restricted "
