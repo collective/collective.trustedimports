@@ -32,3 +32,4 @@ ModuleSecurityInfo('suds').declarePublic('WebFault','MethodNotFound')
 allow_class(WebFault)
 allow_class(MethodNotFound)
 
+
