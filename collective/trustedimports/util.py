@@ -4,6 +4,9 @@ from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 from zope.security.checker import defineChecker, CheckerPublic, NamesChecker, selectChecker
+import inspect
+from collections import OrderedDict
+import itertools
 
 
 def whitelist_module(module, classes=[], definitions=[]):
@@ -27,3 +30,52 @@ def whitelist_module(module, classes=[], definitions=[]):
         defineChecker(imodule,
                   NamesChecker([meth for meth in definitions if meth[0] != '_']))
     #TODO classes
+
+def restricted_python_call():
+    # HACK: must be a better way to do this
+    caller = inspect.stack()[2][1]
+    return caller == 'Script (Python)'
+
+
+def monkey_patch_if_restricted(method, is_allowed=False):
+    """
+    Will wrap a method in a way that will raise an exception of the test fails and this method was
+    called directly from restricted python.
+    `is_allowed` can be a callable taking arguments from the original methods arguments
+    """
+
+    if not inspect.ismethod(method):
+        raise ValueError("method must be a method")
+    if method.__name__ == 'not_allowed':
+        # don't mokey patch twice
+        return
+
+    klass = method.im_class
+
+    original = getattr(klass, method.__name__)
+    if is_allowed==True:
+        return
+    elif is_allowed==False:
+        def not_allowed(*args, **kwargs):
+            if restricted_python_call():
+                # TODO: change to a better exception
+                raise ValueError("Method '%s' not supported in a restricted python call"%method.__name__)
+            return original.__call__(*args, **kwargs)
+
+    else:
+        names, args_name, kwargs_name, defaults = inspect.getargspec(method)
+        seeking, _, _, _ = inspect.getargspec(is_allowed)
+        if seeking and not set(seeking).intersection(set(names)):
+            raise Exception("Argument name %s not available the monkey patched method" % seeking)
+        def not_allowed(*args, **kwargs):
+            args_name = list(OrderedDict.fromkeys(names + kwargs.keys()))
+            args_dict = OrderedDict(list(itertools.izip(args_name, args)) + list(kwargs.iteritems()))
+
+            if restricted_python_call() and not is_allowed(*[args_dict[s] for s in seeking]):
+                # TODO: change to a better exception
+                raise ValueError("Argument(s) '%s' have values not supported in a restricted python call"% ','.join(seeking))
+            return original.__call__(*args, **kwargs)
+
+
+    not_allowed.__name__ = method.__name__
+    setattr(klass, method.__name__, not_allowed)

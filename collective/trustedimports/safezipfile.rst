@@ -4,7 +4,7 @@ Zip
 When used in RestrictedPython we can still use ZipFile
 
 >>> teval("from zipfile import ZipFile; from StringIO import StringIO; return ZipFile(StringIO(),'w')")
-<collective.trustedimports.safezipfile.SafeZipFile ... at ...>
+<zipfile.ZipFile ... at ...>
 
 
 but we can't use it to open files on the disk
@@ -12,14 +12,19 @@ but we can't use it to open files on the disk
 >>> teval("import zipfile; zipfile.ZipFile('myfile.zip')")
 Traceback (most recent call last):
 ...
-Unauthorized: Not supported by SafeZipFile in this context
+ValueError: Argument(s) 'file' have values not supported in a restricted python call
 
 or use it to extract files to disk
 
 >>> teval("from zipfile import ZipFile; from StringIO import StringIO; ZipFile(StringIO(),'w').extractall()")
 Traceback (most recent call last):
 ...
-Unauthorized: Not supported by SafeZipFile in this context
+ValueError: Method 'extractall' not supported in a restricted python call
+
+>>> teval("from zipfile import ZipFile; from StringIO import StringIO; ZipFile(StringIO(),'w').extract()")
+Traceback (most recent call last):
+...
+ValueError: Method 'extract' not supported in a restricted python call
 
 We can still use it when not in a PythonScript
 
