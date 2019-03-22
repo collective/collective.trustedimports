@@ -17,8 +17,11 @@ allow_module('email.mime.base')
 ModuleSecurityInfo('email.mime.base').declarePublic('MIMEBase')
 import email.mime.base
 allow_class(email.mime.base.MIMEBase)
+import email.encoders
+allow_class(email.encoders.encode_base64)
 allow_module('email.encoders')
 ModuleSecurityInfo('email').declarePublic('encoders')
+ModuleSecurityInfo('email.encoders').declarePublic('encode_base64')
 ModuleSecurityInfo('email.encoders').declarePublic(
     'encode_7or8bit',
     'encode_base64',
