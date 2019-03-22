@@ -1,16 +1,15 @@
 import zipfile
 from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo, Unauthorized
 from zipfile import ZipFile as _ZipFile, ZIP_STORED, ZipInfo
-from collective.trustedimports.util import monkey_patch_if_restricted
+from collective.trustedimports.util import wrap_protected
 
 # monkey patching zipfile
 
-monkey_patch_if_restricted(_ZipFile.__init__, lambda file: not isinstance(file, basestring))
-monkey_patch_if_restricted(_ZipFile.extract)
-monkey_patch_if_restricted(_ZipFile.extractall)
-monkey_patch_if_restricted(_ZipFile.write)
+wrap_protected(_ZipFile.__init__, lambda file: not isinstance(file, basestring))
+wrap_protected(_ZipFile.extract)
+wrap_protected(_ZipFile.extractall)
+wrap_protected(_ZipFile.write)
 
-#zipfile.ZipFile = SafeZipFile
 
 ModuleSecurityInfo('zipfile').declarePublic('ZipFile')
 

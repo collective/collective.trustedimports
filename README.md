@@ -65,6 +65,7 @@ How to whitelist a module
    - e.g. ```whitelist_module(module='base64', classes=['b64encode', 'b64decode'])```
    - Only whitelist functions that are safe. For example never whitelist functions that access
      local file system files.
+   - you can use utils.wrap_protected to monkey patch methods that should be restricted
    - you can use our [convenience function](https://github.com/collective/collective.trustedimports/blob/master/collective/trustedimports/util.py#L9) to handle whitelisting in both zope.security and Products.PythonScripts at the same time (there are two different systems of restricted python).
    - If what you want to whitelist does include unsafe calls such as access to the filesystem, there are [ways to monkey patch to make it safe](https://github.com/collective/collective.trustedimports/blob/master/collective/trustedimports/safezipfile.py#L58)
    - Don't contribute convinience functions. The goal of trustedimports is how you use the module should remain unchanged.

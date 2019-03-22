@@ -1,9 +1,5 @@
 from AccessControl import ModuleSecurityInfo
 
-try:
-    import pystache
-except ImportError:
-    pystache = None
+import pystache
 
-if pystache is not None:
-    ModuleSecurityInfo('pystache').declarePublic('render')
+ModuleSecurityInfo('pystache').declarePublic('render')

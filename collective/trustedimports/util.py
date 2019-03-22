@@ -1,4 +1,5 @@
 import importlib
+import os
 from AccessControl import allow_type
 from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
@@ -37,7 +38,15 @@ def restricted_python_call():
     return caller == 'Script (Python)'
 
 
-def monkey_patch_if_restricted(method, is_allowed=False):
+def is_url_allowed(url=None, uri=None, link=None):
+    url = [name for name in [url,uri,link] if name is not None]
+    blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST ', '')
+    # TODO: better test for wildcard domain names
+    return url not in blacklist
+
+
+
+def wrap_protected(method, is_allowed=False):
     """
     Will wrap a method in a way that will raise an exception of the test fails and this method was
     called directly from restricted python.
