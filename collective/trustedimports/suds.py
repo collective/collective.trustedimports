@@ -1,4 +1,4 @@
-from collective.trustedimports.util import whitelist_module
+from collective.trustedimports.util import whitelist_module, wrap_protected, is_url_allowed
 import os
 from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo, Unauthorized
 from AccessControl.class_init import InitializeClass
@@ -8,21 +8,8 @@ from suds import WebFault
 from suds import MethodNotFound
 
 
-class SafeClient(_Client):
-    """ SafeClient
-    """
-
-    def __init__(self, url, **kwargs):
-
-        blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST ', '')
-        if url in blacklist:
-            raise Unauthorized("Not supported by SafeClient in this context")
-
-        return _Client.__init__(self, url, kwargs)
-
-
 # monkey patching zipfile
-suds.client.Client = SafeClient
+wrap_protected(_Client.__init__, is_url_allowed)
 
 ModuleSecurityInfo('collective.trustedimports.suds').declarePublic('SafeClient')
 
