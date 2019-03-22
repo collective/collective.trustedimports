@@ -16,6 +16,7 @@
     <include zcml:condition="installed defusedxml" package=".defusedxml"  />
     <include zcml:condition="installed pystache" package=".pystache"  />
     <include zcml:condition="installed phonenumbers" package=".phonenumbers"  />
+    <include zcml:condition="installed suds" package=".suds"  />
 
 
 </configure>
