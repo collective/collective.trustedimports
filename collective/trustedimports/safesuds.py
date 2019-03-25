@@ -4,23 +4,25 @@ from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 from suds.client import Client
 from suds import WebFault, MethodNotFound
+from suds.transport.https import HttpAuthenticated
 
-
-def is_transport_allowed(transport=None):
-    if transport:
+def is_transport_allowed(**kwargs):
+    if 'transport' in kwargs:
         return False
     return True
 
-def client_allowed(url=None, uri=None, link=None,transport=None):
-    return is_transport_allowed(transport) and is_url_allowed(url, uri, link)
+def client_allowed(url,**kwargs):
+    return is_transport_allowed(**kwargs) and is_url_allowed(url)
 
 # monkey patching suds
 wrap_protected(Client.__init__, client_allowed)
 wrap_protected(Client.set_options, is_transport_allowed)
 
-ModuleSecurityInfo('suds').declarePublic('Client')
-
+ModuleSecurityInfo('suds.client').declarePublic('Client')
 allow_class(Client)
+ModuleSecurityInfo('suds.transport.https').declarePublic('HttpAuthenticated')
+allow_class(HttpAuthenticated)
+
 ModuleSecurityInfo('suds').declarePublic('WebFault','MethodNotFound')
 
 allow_class(WebFault)

@@ -17,6 +17,7 @@ from zope.interface import Interface
 import doctest
 import unittest
 import collective.trustedimports
+import os
 
 _ms_before = None
 _ams_before = None
@@ -34,7 +35,7 @@ def setUp(test=None):
     MSI('sets').declarePublic('Set')
     newSecurityManager(None, None)
     xmlconfig.file('configure.zcml', collective.trustedimports, ) #context=configurationContext)
-
+    os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "https://www.w3schools.com/Xml/tempconvert.asmx?WSDL"
 
 def teardown(test=None):
     testing.tearDown()
@@ -180,4 +181,5 @@ def test_suite():
         )
 
     return unittest.TestSuite(tests)
+
 
