@@ -1,25 +1,49 @@
-Zip
+SOAP
 ===
 
 When used in RestrictedPython we can still use Suds
 
->>> teval("from zeep import Client; return Client('http://www.webservicex.net/ConvertSpeed.asmx?WSDL')")
-
+>>> teval("from zeep import Client;return Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL')")
+<zeep.client.Client ... at ...>
 
 We cann't set transport option for WSDL service
 
->>> teval("from zeep import Client;from suds.transport.https import HttpAuthenticated;client = Client('https://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl',transport=HttpAuthenticated())")
+>>> teval("from zeep import Client;from suds.transport.https import HttpAuthenticated;client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL', settings = {'force_https':True})")
+Traceback (most recent call last):
+...
+ValueError: Argument(s) 'wsdl,settings' have values not supported in a restricted python call
 
->>> teval("from zeep import Client;from suds.transport.https import HttpAuthenticated;client = Client('https://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl');client.set_options(transport=HttpAuthenticated())")
+>>> teval("from zeep import Client;from suds.transport.https import HttpAuthenticated;client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL', settings = {'extra_http_headers':''})")
+Traceback (most recent call last):
+...
+ValueError: Argument(s) 'wsdl,settings' have values not supported in a restricted python call
 
-We can get execute method from WSDL service
+We cann't open connection to URL in blacklist
+>>> teval("from zeep import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL')")
+Traceback (most recent call last):
+...
+ValueError: Argument(s) 'wsdl' have values not supported in a restricted python call
 
->>> teval("from suds.client import Client; client = Client('https://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl');result=client.service.ConvertSpeed(100, 'kilometersPerhour', 'milesPerhour');assert result == 62.137")
+We cann't call method 'bind'
+>>> teval("from zeep import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL');client.bind()")
+Traceback (most recent call last):
+...
+ValueError: Argument(s) 'wsdl' have values not supported in a restricted python call
+
+We cann't call method 'create_service'
+>>> teval("from zeep import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL');client.create_service()")
+Traceback (most recent call last):
+...
+ValueError: Argument(s) 'wsdl' have values not supported in a restricted python call
+
+We can call WSDL method as usual
+>>> teval("from zeep import Client; client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL');result=client.service.CapitalCity('NL');assert result == 'Amsterdam'")
 
 
 We can still use it when not in a PythonScript
 
 >>> from zeep import Client
->>> client = Client('https://graphical.weather.gov/xml/SOAP_server/ndfdXMLserver.php?wsdl')
->>> result = client.service.ConvertSpeed(100, 'kilometersPerhour', 'milesPerhour')
->>> result == 62.137
+>>> client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL')
+>>> result = client.service.CapitalCity('NL')
+>>> result
+'Amsterdam'

@@ -1,4 +1,4 @@
-Zip
+SOAP
 ===
 
 When used in RestrictedPython we can still use ZipFile
