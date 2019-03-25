@@ -61,6 +61,9 @@ setup(
             #'pystache', #TODO need to add tests for this
             #'M2Crypto' #TODO need to add tests for this
             #'phonenumbers', #TODO need to add tests for this
+            'pystache',
+            'zeep',
+            'suds'
         ],
     },
     entry_points="""
