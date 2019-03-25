@@ -55,10 +55,12 @@ setup(
     ],
     extras_require={
         'test': [
-            'defusedxml',
+            #'defusedxml', #TODO need to add tests for this
             'collective.taskqueue',
-            'pystache',
-            'M2Crypto'
+            'lxml', # TODO need to add tests for this
+            #'pystache', #TODO need to add tests for this
+            #'M2Crypto' #TODO need to add tests for this
+            #'phonenumbers', #TODO need to add tests for this
         ],
     },
     entry_points="""

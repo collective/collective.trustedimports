@@ -1,3 +1,6 @@
+import glob
+import os
+
 from Products.PythonScripts.tests.testPythonScript import VerifiedPythonScript, readf
 from zope.configuration import xmlconfig
 from zope.untrustedpython import interpreter, rcompile
@@ -161,37 +164,19 @@ def teval(txt, bind=None):
 
 
 def test_suite():
-    return unittest.TestSuite([
-        doctest.DocFileSuite(
-            'plonelib.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-        doctest.DocFileSuite(
-            'stdlib.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-        doctest.DocFileSuite(
-            'safezipfile.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-        doctest.DocFileSuite(
-            'trustedemail.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-    ])
+
+    tests = []
+    import pdb; pdb.set_trace()
+    for path in glob.glob(os.path.join(os.path.dirname(__file__),'*.rst')):
+        tests.append(
+            doctest.DocFileSuite(
+                os.path.split(path)[-1],
+                package='collective.trustedimports',
+                optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
+                setUp=setUp,
+                tearDown=testing.tearDown,
+                globs=dict(teval=teval),
+            ),
+        )
+
+    return unittest.TestSuite(tests)
