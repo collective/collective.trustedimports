@@ -19,7 +19,7 @@ Traceback (most recent call last):
 ValueError: Argument(s) 'transport' have values not supported in a restricted python call
 
 We cann't open connection to URL in blacklist
->>> teval("from suds.client import Client; from suds import WebFault,MethodNotFound;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL')")
+>>> teval("from suds.client import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL')")
 Traceback (most recent call last):
 ...
 ValueError: Argument(s) 'url' have values not supported in a restricted python call

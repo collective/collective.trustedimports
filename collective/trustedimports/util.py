@@ -47,6 +47,7 @@ def is_url_allowed(url=None, uri=None, link=None):
     # Use semicolin delimiter for multiple url in blacklist
     blacklist = blacklist.split(';')
     for pattern in blacklist:
+        pattern = pattern.strip()
         for name in url:
             if fnmatch.fnmatch(name, pattern):
                 return False
