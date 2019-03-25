@@ -8,7 +8,8 @@ from zope.security.checker import defineChecker, CheckerPublic, NamesChecker, se
 import inspect
 from collections import OrderedDict
 import itertools
-
+import re
+import fnmatch
 
 def whitelist_module(module, classes=[], definitions=[]):
 
@@ -41,8 +42,11 @@ def restricted_python_call():
 def is_url_allowed(url=None, uri=None, link=None):
     url = [name for name in [url,uri,link] if name is not None]
     blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST ', '')
-    # TODO: better test for wildcard domain names
-    return url not in blacklist
+    # Use semicolin delimiter for multiple url in blacklist
+    for pattern in re.split(';',blacklist):
+        if fnmatch.fnmatch(url, pattern):
+            return False
+    return True
 
 
 
