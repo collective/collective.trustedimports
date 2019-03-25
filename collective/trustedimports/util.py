@@ -26,11 +26,12 @@ def whitelist_module(module, classes=[], definitions=[]):
     if not definitions:
         definitions = dir(module)
 
-
     if selectChecker(imodule) is None:
         defineChecker(imodule,
-                  NamesChecker([meth for meth in definitions if meth[0] != '_']))
-    #TODO classes
+                  NamesChecker([meth for meth in definitions+classes if meth[0] != '_']))
+    for klass in classes:
+        klass = getattr(imodule, klass)
+        klass.__Security_checker__ = NamesChecker([n for n in dir(klass) if n[0] != '_'])
 
 def restricted_python_call():
     # HACK: must be a better way to do this

@@ -168,7 +168,6 @@ def untrusted_eval(code, bind=None):
 def test_suite():
 
     tests = []
-    import pdb; pdb.set_trace()
     for path in glob.glob(os.path.join(os.path.dirname(__file__),'*.rst')):
         tests.append(
             doctest.DocFileSuite(
@@ -181,7 +180,7 @@ def test_suite():
             ),
         )
         tests.append(
-                doctest.DocFileSuite(
+            doctest.DocFileSuite(
                 os.path.split(path)[-1],
                 package='collective.trustedimports',
                 optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
