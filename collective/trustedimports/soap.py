@@ -3,6 +3,7 @@ from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo, Un
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 from zeep import Client
+from zeep.proxy import ServiceProxy
 
 
 def is_transport_allowed(**kwargs):
@@ -24,5 +25,4 @@ wrap_protected(Client.create_service)
 
 ModuleSecurityInfo('zeep').declarePublic('Client')
 allow_class(Client)
-
-
+allow_class(ServiceProxy)

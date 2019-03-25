@@ -2,9 +2,9 @@ from collective.trustedimports.util import whitelist_module, wrap_protected, is_
 from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo, Unauthorized
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
-from suds.client import Client
 from suds import WebFault, MethodNotFound
 from suds.transport.https import HttpAuthenticated
+from suds.client import  Client
 
 def is_transport_allowed(**kwargs):
     if 'transport' in kwargs:
@@ -20,6 +20,8 @@ wrap_protected(Client.set_options, is_transport_allowed)
 
 ModuleSecurityInfo('suds.client').declarePublic('Client')
 allow_class(Client)
+
+
 ModuleSecurityInfo('suds.transport.https').declarePublic('HttpAuthenticated')
 allow_class(HttpAuthenticated)
 
