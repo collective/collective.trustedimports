@@ -1,3 +1,6 @@
+import glob
+import os
+
 from Products.PythonScripts.tests.testPythonScript import VerifiedPythonScript, readf
 from zope.configuration import xmlconfig
 from zope.untrustedpython import interpreter, rcompile
@@ -14,6 +17,7 @@ from zope.interface import Interface
 import doctest
 import unittest
 import collective.trustedimports
+import os
 
 _ms_before = None
 _ams_before = None
@@ -31,7 +35,7 @@ def setUp(test=None):
     MSI('sets').declarePublic('Set')
     newSecurityManager(None, None)
     xmlconfig.file('configure.zcml', collective.trustedimports, ) #context=configurationContext)
-
+    os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "https://www.w3schools.com/Xml/tempconvert.asmx?WSDL;http://www.dneonline.com/*.asmx?WSDL"
 
 def teardown(test=None):
     testing.tearDown()
@@ -161,37 +165,20 @@ def teval(txt, bind=None):
 
 
 def test_suite():
-    return unittest.TestSuite([
-        doctest.DocFileSuite(
-            'plonelib.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-        doctest.DocFileSuite(
-            'stdlib.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-        doctest.DocFileSuite(
-            'safezipfile.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-        doctest.DocFileSuite(
-            'trustedemail.rst',
-            package='collective.trustedimports',
-            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
-            setUp=setUp,
-            tearDown=testing.tearDown,
-            globs=dict(teval=teval),
-        ),
-    ])
+
+    tests = []
+    for path in glob.glob(os.path.join(os.path.dirname(__file__),'*.rst')):
+        tests.append(
+            doctest.DocFileSuite(
+                os.path.split(path)[-1],
+                package='collective.trustedimports',
+                optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
+                setUp=setUp,
+                tearDown=testing.tearDown,
+                globs=dict(teval=teval),
+            ),
+        )
+
+    return unittest.TestSuite(tests)
+
+
