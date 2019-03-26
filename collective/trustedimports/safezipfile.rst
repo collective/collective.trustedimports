@@ -1,5 +1,5 @@
-SOAP
-===
+ZIPFILE
+=======
 
 When used in RestrictedPython we can still use ZipFile
 
