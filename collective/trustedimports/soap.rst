@@ -1,10 +1,16 @@
 SOAP
 ===
 
-When used in RestrictedPython we can still use Suds
+When used in RestrictedPython we can still use Zeep
 
 >>> teval("from zeep import Client;return Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL')")
 <zeep.client.Client ... at ...>
+
+>>> teval("from zeep.exceptions import Error;raise Error('Test error')")
+Traceback (most recent call last):
+...
+Error: Test error
+
 
 We cann't set transport option for WSDL service
 
