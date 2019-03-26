@@ -5,14 +5,11 @@ from Products.PythonScripts.Utility import allow_module
 from zeep import Client
 from zeep.proxy import ServiceProxy
 from zeep.exceptions import Error
+from zeep.transports import Transport
 
 def is_transport_allowed(**kwargs):
-    if 'settings' in kwargs:
-        setting = kwargs['settings']
-        if 'force_https' in setting or getattr(setting,'force_https',None):
-            return False
-        if 'extra_http_headers' in setting or getattr(setting,'extra_http_headers',None):
-            return False
+    if 'transport' in kwargs:
+        return False
     return True
 
 def client_allowed(wsdl,**kwargs):
@@ -25,8 +22,10 @@ wrap_protected(Client.create_service)
 
 allow_class(Client)
 # Require for client.service to work
+allow_class(Transport)
 allow_class(ServiceProxy)
 allow_class(Error)
 
 ModuleSecurityInfo('zeep').declarePublic('Client')
 ModuleSecurityInfo('zeep.exceptions').declarePublic('Error')
+ModuleSecurityInfo('zeep.transports').declarePublic('Transport')

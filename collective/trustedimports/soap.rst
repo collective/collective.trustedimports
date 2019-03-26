@@ -14,15 +14,11 @@ Error: Test error
 
 We cann't set transport option for WSDL service
 
->>> teval("from zeep import Client;client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL', settings = {'force_https':True})")
+>>> teval("from zeep import Client;from zeep.transports import Transport;client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL', transport = Transport())")
 Traceback (most recent call last):
 ...
-ValueError: Argument(s) 'wsdl,settings' have values not supported in a restricted python call
+ValueError: Argument(s) 'wsdl,transport' have values not supported in a restricted python call
 
->>> teval("from zeep import Client;client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL', settings = {'extra_http_headers':''})")
-Traceback (most recent call last):
-...
-ValueError: Argument(s) 'wsdl,settings' have values not supported in a restricted python call
 
 We cann't open connection to URL in blacklist
 >>> teval("from zeep import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL')")
