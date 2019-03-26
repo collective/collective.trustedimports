@@ -18,7 +18,7 @@ def is_transport_allowed(**kwargs):
 def client_allowed(wsdl,**kwargs):
     return is_transport_allowed(**kwargs) and is_url_allowed(wsdl)
 
-# monkey patching suds
+# monkey patching zeep
 wrap_protected(Client.__init__, client_allowed)
 wrap_protected(Client.bind)
 wrap_protected(Client.create_service)

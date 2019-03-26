@@ -35,7 +35,7 @@ def setUp(test=None):
     MSI('sets').declarePublic('Set')
     newSecurityManager(None, None)
     xmlconfig.file('configure.zcml', collective.trustedimports, ) #context=configurationContext)
-    os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "https://www.w3schools.com/Xml/tempconvert.asmx?WSDL"
+    os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "https://www.w3schools.com/Xml/tempconvert.asmx?WSDL;http://www.dneonline.com/*.asmx?WSDL"
 
 def teardown(test=None):
     testing.tearDown()
@@ -167,7 +167,6 @@ def teval(txt, bind=None):
 def test_suite():
 
     tests = []
-    import pdb; pdb.set_trace()
     for path in glob.glob(os.path.join(os.path.dirname(__file__),'*.rst')):
         tests.append(
             doctest.DocFileSuite(

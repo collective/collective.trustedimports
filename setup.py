@@ -63,7 +63,6 @@ setup(
             #'phonenumbers', #TODO need to add tests for this
             'pystache',
             'zeep',
-            'suds'
         ],
     },
     entry_points="""

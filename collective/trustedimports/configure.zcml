@@ -17,7 +17,6 @@
     <include zcml:condition="installed lxml" package=".lxml"  />
     <include zcml:condition="installed pystache" package=".pystache"  />
     <include zcml:condition="installed phonenumbers" package=".phonenumbers"  />
-    <include zcml:condition="installed suds" package=".safesuds"  />
      <include zcml:condition="installed zeep" package=".soap"  />
 
 
