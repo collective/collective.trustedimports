@@ -26,11 +26,24 @@ Traceback (most recent call last):
 ...
 ValueError: Argument(s) 'transport' have values not supported in a restricted python call
 
+or set transport directly
+>>> teval("from zeep import Client; Client('blah').transport ='something'")
+Traceback (most recent call last):
+...
+ValueError: unguard attribute set/del at Script (Python):1
+
 >>> import os
->>> os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "https://www.w3schools.com/Xml/tempconvert.asmx?WSDL;http://www.dneonline.com/*.asmx?WSDL"
+>>> os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "www.w3schools.com;/*.asmx"
 
 
-We cann't open connection to URL in blacklist
+
+We can use bind
+>>> teval("from zeep import Client;return Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL').bind('CountryInfoService', 'CountryInfoServiceSoap').CapitalCity('NL')")
+'Amsterdam'
+
+
+
+We can't open connection to URL in blacklist
 >>> teval("from zeep import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL')")
 Traceback (most recent call last):
 ...
@@ -42,27 +55,11 @@ Traceback (most recent call last):
 ...
 ValueError: URL http://www.dneonline.com/calculator.asmx?WSDL is not allowed to be accessed
 
+'create_service' has restricted urls
+>>> teval("from zeep import Client;client = Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL');return client.create_service('{https://www.w3schools.com/xml/}TempConvertSoap', 'http://www.w3schools.com')")
+Traceback (most recent call last):
+...
+ValueError: URL https://www.w3schools.com/Xml/tempconvert.asmx?WSDL is not allowed to be accessed
+
+
 >>> del os.environ["SAFEIMPORTS_URL_BLACKLIST"]
-
-We cann't call method 'bind'
->>> teval("from zeep import Client;client = Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL');client.bind()")
-Traceback (most recent call last):
-...
-ValueError: Method 'bind' not supported in a restricted python call
-
-
-We can still use it when not in a PythonScript
-
->>> from zeep import Client
->>> client = Client('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL')
->>> service = client.bind('CountryInfoService', 'CountryInfoServiceSoap')
->>> result = service.CapitalCity('NL')
->>> result
-'Amsterdam'
-
-
-We cann't call method 'create_service'
->>> teval("from zeep import Client;client = Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL');client.create_service()")
-Traceback (most recent call last):
-...
-ValueError: Method 'create_service' not supported in a restricted python call

@@ -39,15 +39,15 @@ def restricted_python_call():
     return caller == 'Script (Python)'
 
 
+
 def is_url_allowed(url=None, uri=None, link=None):
-    urls = [name for name in [url,uri,link] if name is not None]
-    blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST', None)
+    blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST', '')
+    # Use semicolin delimiter for multiple url in blacklist
+    blacklist = ["*%s*" % domain.strip() for domain in blacklist.split(';') if domain.strip()]
     if not blacklist:
         return True
-    # Use semicolin delimiter for multiple url in blacklist
-    blacklist = blacklist.split(';')
+    urls = [name for name in [url,uri,link] if name is not None]
     for pattern in blacklist:
-        pattern = pattern.strip()
         for url in urls:
             if fnmatch.fnmatch(url, pattern):
                 raise ValueError("URL %s is not allowed to be accessed" % url)
