@@ -8,7 +8,8 @@ from zope.security.checker import defineChecker, CheckerPublic, NamesChecker, se
 import inspect
 from collections import OrderedDict
 import itertools
-
+import re
+import fnmatch
 
 def whitelist_module(module, classes=[], definitions=[]):
 
@@ -40,11 +41,17 @@ def restricted_python_call():
 
 def is_url_allowed(url=None, uri=None, link=None):
     url = [name for name in [url,uri,link] if name is not None]
-    blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST ', '')
-    # TODO: better test for wildcard domain names
-    return url not in blacklist
-
-
+    blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST', None)
+    if not blacklist:
+        return True
+    # Use semicolin delimiter for multiple url in blacklist
+    blacklist = blacklist.split(';')
+    for pattern in blacklist:
+        pattern = pattern.strip()
+        for name in url:
+            if fnmatch.fnmatch(name, pattern):
+                return False
+    return True
 
 def wrap_protected(method, is_allowed=False):
     """
@@ -79,10 +86,9 @@ def wrap_protected(method, is_allowed=False):
         def not_allowed(*args, **kwargs):
             args_name = list(OrderedDict.fromkeys(names + kwargs.keys()))
             args_dict = OrderedDict(list(itertools.izip(args_name, args)) + list(kwargs.iteritems()))
-
-            if restricted_python_call() and not is_allowed(*[args_dict[s] for s in seeking]):
+            if restricted_python_call() and not is_allowed(*[args_dict[s] for s in seeking],**kwargs):
                 # TODO: change to a better exception
-                raise ValueError("Argument(s) '%s' have values not supported in a restricted python call"% ','.join(seeking))
+                raise ValueError("Argument(s) '%s' have values not supported in a restricted python call"% ','.join(seeking+kwargs.keys()))
             return original.__call__(*args, **kwargs)
 
 
