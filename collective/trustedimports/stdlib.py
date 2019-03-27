@@ -78,9 +78,6 @@ allow_class(csv.Sniffer)
 
 # StringIO
 
-#allow_module('StringIO')
-#import StringIO
-#allow_class(StringIO.StringIO)
 whitelist_module('StringIO', classes=['StringIO'])
 
 whitelist_module('cStringIO')
