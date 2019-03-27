@@ -7,25 +7,21 @@ from zeep.proxy import ServiceProxy
 from zeep.exceptions import Error
 from zeep.transports import Transport
 
-def is_transport_allowed(**kwargs):
-    if 'transport' in kwargs:
-        return False
-    return True
+def is_transport_allowed(transport):
+    return False
 
-def client_allowed(wsdl,**kwargs):
-    return is_transport_allowed(**kwargs) and is_url_allowed(wsdl)
+def is_wdsl_allowed(wsdl):
+    return  is_url_allowed(wsdl)
 
 # monkey patching zeep
-wrap_protected(Client.__init__, client_allowed)
+wrap_protected(Client.__init__, is_transport_allowed, is_wdsl_allowed)
 wrap_protected(Client.bind)
 wrap_protected(Client.create_service)
 
 allow_class(Client)
 # Require for client.service to work
-allow_class(Transport)
 allow_class(ServiceProxy)
 allow_class(Error)
 
 ModuleSecurityInfo('zeep').declarePublic('Client')
 ModuleSecurityInfo('zeep.exceptions').declarePublic('Error')
-ModuleSecurityInfo('zeep.transports').declarePublic('Transport')

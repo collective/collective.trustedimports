@@ -40,7 +40,7 @@ def restricted_python_call():
 
 
 def is_url_allowed(url=None, uri=None, link=None):
-    url = [name for name in [url,uri,link] if name is not None]
+    urls = [name for name in [url,uri,link] if name is not None]
     blacklist = os.getenv('SAFEIMPORTS_URL_BLACKLIST', None)
     if not blacklist:
         return True
@@ -48,12 +48,12 @@ def is_url_allowed(url=None, uri=None, link=None):
     blacklist = blacklist.split(';')
     for pattern in blacklist:
         pattern = pattern.strip()
-        for name in url:
-            if fnmatch.fnmatch(name, pattern):
-                return False
+        for url in urls:
+            if fnmatch.fnmatch(url, pattern):
+                raise ValueError("URL %s is not allowed to be accessed" % url)
     return True
 
-def wrap_protected(method, is_allowed=False):
+def wrap_protected(method, *is_alloweds):
     """
     Will wrap a method in a way that will raise an exception of the test fails and this method was
     called directly from restricted python.
@@ -69,9 +69,7 @@ def wrap_protected(method, is_allowed=False):
     klass = method.im_class
 
     original = getattr(klass, method.__name__)
-    if is_allowed==True:
-        return
-    elif is_allowed==False:
+    if not is_alloweds:
         def not_allowed(*args, **kwargs):
             if restricted_python_call():
                 # TODO: change to a better exception
@@ -80,15 +78,17 @@ def wrap_protected(method, is_allowed=False):
 
     else:
         names, args_name, kwargs_name, defaults = inspect.getargspec(method)
-        seeking, _, _, _ = inspect.getargspec(is_allowed)
-        if seeking and not set(seeking).intersection(set(names)):
-            raise Exception("Argument name %s not available the monkey patched method" % seeking)
         def not_allowed(*args, **kwargs):
             args_name = list(OrderedDict.fromkeys(names + kwargs.keys()))
             args_dict = OrderedDict(list(itertools.izip(args_name, args)) + list(kwargs.iteritems()))
-            if restricted_python_call() and not is_allowed(*[args_dict[s] for s in seeking],**kwargs):
-                # TODO: change to a better exception
-                raise ValueError("Argument(s) '%s' have values not supported in a restricted python call"% ','.join(seeking+kwargs.keys()))
+            if restricted_python_call():
+                for is_allowed in is_alloweds:
+                    seeking, _, _, _ = inspect.getargspec(is_allowed)
+                    if not any([s in args_dict for s in seeking]):
+                        continue
+                    if not is_allowed(**dict([(s,args_dict[s]) for s in seeking])):
+                        found = ','.join(seeking)
+                        raise ValueError("Argument(s) '%s' have values not supported in a restricted python call"%found)
             return original.__call__(*args, **kwargs)
 
 
