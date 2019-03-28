@@ -38,6 +38,7 @@ Currently support libraries which can use used without modification are:
 - [zipfile supported](collective/trustedimports/safezipfile.rst)
 - [M2Crypto and email](collective/trustedimports/trustedemail.rst)
 - [some zope/plone libraries](collective/trustedimports/plone.rst)
+- [SOAP zeep Client supported](collective/trustedimports/soap.rst)
 
 Contribute
 ----------

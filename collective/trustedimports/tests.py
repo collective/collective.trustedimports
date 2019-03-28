@@ -35,7 +35,6 @@ def setUp(test=None):
     newSecurityManager(None, None)
     xmlconfig.file('configure.zcml', collective.trustedimports, ) #context=configurationContext)
 
-
 def teardown(test=None):
     testing.tearDown()
 
@@ -166,7 +165,6 @@ def teval(txt, bind=None):
 def test_suite():
 
     tests = []
-    import pdb; pdb.set_trace()
     for path in glob.glob(os.path.join(os.path.dirname(__file__),'*.rst')):
         tests.append(
             doctest.DocFileSuite(
@@ -180,3 +178,5 @@ def test_suite():
         )
 
     return unittest.TestSuite(tests)
+
+
