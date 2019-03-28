@@ -31,6 +31,8 @@ We can use bind
 URL Restrictions
 ----------------
 
+*WARNING: The urls referenced in a downloaded WSDL are not currently checked for safety.*
+
 If we use the url blacklist we can prevent certain urls being accessed
 
 >>> import os

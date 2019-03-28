@@ -49,7 +49,7 @@ def is_url_allowed(url=None, uri=None, link=None):
     urls = [name for name in [url,uri,link] if name is not None]
     for pattern in blacklist:
         for url in urls:
-            if fnmatch.fnmatch(url, pattern):
+            if url.startswith('file://') or fnmatch.fnmatch(url, pattern):
                 raise ValueError("URL %s is not allowed to be accessed" % url)
     return True
 
