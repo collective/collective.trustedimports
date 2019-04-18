@@ -18,5 +18,6 @@
     <include zcml:condition="installed pystache" package=".pystache"  />
     <include zcml:condition="installed phonenumbers" package=".phonenumbers"  />
      <include zcml:condition="installed zeep" package=".soap"  />
+     <include package=".url"  />
 
 </configure>
