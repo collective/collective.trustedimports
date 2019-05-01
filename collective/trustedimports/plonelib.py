@@ -14,6 +14,10 @@ portal.declarePublic('get_tool')
 # zope transcation stuff
 ModuleSecurityInfo("transaction").declarePublic("savepoint")
 
+# zope proection stuff
+ModuleSecurityInfo("plone.protect.interfaces").declarePublic("IDisableCSRFProtection")
+ModuleSecurityInfo("zope.interface").declarePublic("alsoProvides")
+
 # Basic ZODB stuff
 import persistent.list
 import persistent.dict
