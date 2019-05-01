@@ -2,8 +2,6 @@ from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 from zope.security.checker import defineChecker, CheckerPublic, NamesChecker
-import plone.protect.interfaces.IDisableCSRFProtection
-import zope
 
 allow_module("plone.subrequest")
 
@@ -16,10 +14,10 @@ portal.declarePublic('get_tool')
 ModuleSecurityInfo("transaction").declarePublic("savepoint")
 
 # Whitelist plone.protect
-from plone.protect.interfaces import IDisableCSRFProtection
+ModuleSecurityInfo('plone.protect.utils').declarePublic('safeWrite')
 ModuleSecurityInfo('plone.protect.interfaces').declarePublic('IDisableCSRFProtection')
-from zope.interface import alsoProvides
 ModuleSecurityInfo('zope.interface').declarePublic('alsoProvides')
+
 
 # Basic ZODB stuff
 import persistent.list
@@ -37,12 +35,9 @@ list_checker = NamesChecker(['__call__','__init__','__getitem__', '__getslice__'
                         '__add__', '__radd__','__setitem__' ])
 persistent.list.PersistentList.__Security_checker__ = list_checker
 
-defineChecker(persistent.dict.PersistentDict,             )
-defineChecker(persistent.list.PersistentList,
+#defineChecker(persistent.dict.PersistentDict,)
+#defineChecker(persistent.list.PersistentList,)
 
-
-#TODO: move into taskqueue
-ModuleSecurityInfo("collective.taskqueue.taskqueue").declarePublic("add")
 
 # RichTextValue
 try:
