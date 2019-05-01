@@ -2,8 +2,8 @@ from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
 from zope.security.checker import defineChecker, CheckerPublic, NamesChecker
-import plone.protect.interfaces
-import zope.interface
+import plone.protect.interfaces.IDisableCSRFProtection
+import zope
 
 allow_module("plone.subrequest")
 
@@ -15,15 +15,10 @@ portal.declarePublic('get_tool')
 # zope transcation stuff
 ModuleSecurityInfo("transaction").declarePublic("savepoint")
 
-# Whitelist zope.interface
-allow_module('zope.interface')
-interface = ModuleSecurityInfo('zope.interface')
-interface.declarePublic('alsoProvides')
-
 # Whitelist plone.protect
-allow_module('plone.protect.interfaces')
-protect = ModuleSecurityInfo('plone.protect.interfaces')
-protect.declarePublic('IDisableCSRFProtection')
+from plone.protect.interfaces import IDisableCSRFProtection
+allow_module('plone.protect')
+ModuleSecurityInfo('plone.protect.interfaces').declarePublic('IDisableCSRFProtection')
 
 # Basic ZODB stuff
 import persistent.list
