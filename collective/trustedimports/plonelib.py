@@ -17,8 +17,9 @@ ModuleSecurityInfo("transaction").declarePublic("savepoint")
 
 # Whitelist plone.protect
 from plone.protect.interfaces import IDisableCSRFProtection
-allow_module('plone.protect')
 ModuleSecurityInfo('plone.protect.interfaces').declarePublic('IDisableCSRFProtection')
+from zope.interface import alsoProvides
+ModuleSecurityInfo('zope.interface').declarePublic('alsoProvides')
 
 # Basic ZODB stuff
 import persistent.list
