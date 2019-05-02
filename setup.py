@@ -63,6 +63,7 @@ setup(
             'phonenumbers', #TODO need to add tests for this
             'zeep',
             'Plone',
+            'plone.api',
             'collective.taskqueue',
         ],
     },
