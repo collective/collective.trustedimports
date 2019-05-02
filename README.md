@@ -36,6 +36,7 @@ Currently support libraries which can use used without modification are:
 
 - [stdlib supported](collective/trustedimports/stdlib.rst)
 - [zipfile supported](collective/trustedimports/safezipfile.rst)
+- [urllib/urlparse](collective/trustedimports/url.rst)
 - [email/mimetype/M2Crypto](collective/trustedimports/trustedemail.rst)
 - [SOAP zeep Client](collective/trustedimports/soap.rst)
 - [pystache](collective/trustedimports/pystache.rst)

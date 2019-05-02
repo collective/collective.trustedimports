@@ -1,4 +1,5 @@
 Pystache
 ========
 
->>> teval("import pystache; print pystache.render('Hi {{person}}!', {'person': 'Mom'})")
+>>> teval("import pystache; return pystache.render('Hi {{person}}!', {'person': 'Mom'})")
+u'Hi Mom!'
