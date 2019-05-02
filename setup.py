@@ -58,11 +58,12 @@ setup(
             #'defusedxml', #TODO need to add tests for this
             'collective.taskqueue',
             'lxml', # TODO need to add tests for this
-            #'pystache', #TODO need to add tests for this
+            'pystache', #TODO need to add tests for this
             #'M2Crypto' #TODO need to add tests for this
-            #'phonenumbers', #TODO need to add tests for this
+            'phonenumbers', #TODO need to add tests for this
             'zeep',
             'Plone',
+            'collective.taskqueue',
         ],
     },
     entry_points="""

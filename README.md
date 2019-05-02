@@ -36,9 +36,15 @@ Currently support libraries which can use used without modification are:
 
 - [stdlib supported](collective/trustedimports/stdlib.rst)
 - [zipfile supported](collective/trustedimports/safezipfile.rst)
-- [M2Crypto and email](collective/trustedimports/trustedemail.rst)
-- [some zope/plone libraries](collective/trustedimports/plone.rst)
-- [SOAP zeep Client supported](collective/trustedimports/soap.rst)
+- [email/mimetype/M2Crypto](collective/trustedimports/trustedemail.rst)
+- [SOAP zeep Client](collective/trustedimports/soap.rst)
+- [pystache](collective/trustedimports/pystache.rst)
+- [phonenumbers](collective/trustedimports/phonenumbers.rst)
+- [LXML](collective/trustedimports/lxml.rst)
+- [defusedxml](collective/trustedimports/defusedxml.rst)
+- [zope apis](collective/trustedimports/_zope.rst)
+- [plone apis](collective/trustedimports/plonelib.rst)
+- [collective.taskqueue](collective/trustedimports/collective_taskqueue.rst)
 
 Contribute
 ----------
