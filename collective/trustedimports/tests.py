@@ -150,17 +150,19 @@ class TestPythonScriptNoAq(PythonScriptTestBase):
         self.assertEqual(res, 'txt')
 
 
-def teval(txt, bind=None):
+def teval(code, bind=None):
     ps = VerifiedPythonScript('ps')
     ps.ZBindings_edit(bind or {})
-    ps.write(txt)
+    ps.write(code)
     ps._makeFunction()
     if ps.errors:
         raise SyntaxError, ps.errors[0]
 
-    #TODO: test with untrusted python and raise error if results differ
     return ps()
 
+def untrusted_eval(code, bind=None):
+    d= {}
+    interpreter.exec_src(code, d)
 
 def test_suite():
 
@@ -174,6 +176,16 @@ def test_suite():
                 setUp=setUp,
                 tearDown=testing.tearDown,
                 globs=dict(teval=teval),
+            ),
+        )
+        tests.append(
+            doctest.DocFileSuite(
+                os.path.split(path)[-1],
+                package='collective.trustedimports',
+                optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
+                setUp=setUp,
+                tearDown=testing.tearDown,
+                globs=dict(teval=untrusted_eval),
             ),
         )
 
