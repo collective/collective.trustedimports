@@ -12,6 +12,11 @@ We also can parse with urlparse
 >>> print teval("from urlparse import urlparse;return urlparse('https://www.google.com/')")
 ParseResult...
 
+As well as parse the query string with parse_qs
+
+>>> print teval("from urlparse import urlparse;return urlparse('https://www.google.com/search?q=test')")
+ParseResult...
+
 At this point we don't want to allow access the internet
 
 We cannot user other function of urllib, such as

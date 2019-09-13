@@ -8,3 +8,4 @@ import urlparse
 ModuleSecurityInfo('urllib').declarePublic('quote')
 ModuleSecurityInfo('urlparse').declarePublic('urlparse')
 ModuleSecurityInfo('urlparse').declarePublic('urljoin')
+ModuleSecurityInfo('urlparse').declarePublic('parse_qs')
