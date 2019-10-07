@@ -14,6 +14,7 @@ portal.declarePublic('get_tool')
 # Whitelist plone.protect
 ModuleSecurityInfo('plone.protect.utils').declarePublic('safeWrite')
 ModuleSecurityInfo('plone.protect.interfaces').declarePublic('IDisableCSRFProtection')
+ModuleSecurityInfo('plone.protect.utils').declarePublic('addTokenToUrl')
 
 
 # RichTextValue

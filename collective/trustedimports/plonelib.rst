@@ -30,6 +30,10 @@ or for a single object
 
 >>> teval("from plone.protect.utils import safeWrite")
 
+You can also add a CSRF token to URLs
+
+>>> teval("from plone.protect.utils import addTokenToUrl"")
+
 plone.app.textfield
 -------------------
 
