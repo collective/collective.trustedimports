@@ -8,5 +8,8 @@ import urlparse
 ModuleSecurityInfo('urllib').declarePublic('quote')
 ModuleSecurityInfo('urlparse').declarePublic('urlparse')
 ModuleSecurityInfo('urlparse').declarePublic('urljoin')
-import requests 
-ModuleSecurityInfo('requests')
+
+import requests
+ModuleSecurityInfo('requests').declarePublic('get')
+ModuleSecurityInfo('requests').declarePublic('post')
+allow_class(requests.models.Response)
