@@ -56,3 +56,6 @@ sec_NamedBlobFile.declarePrivate('_setData')
 sec_NamedBlobFile.setDefaultAccess(1)
 sec_NamedBlobFile.apply(plone.namedfile.file.NamedBlobFile)
 InitializeClass(plone.namedfile.file.NamedBlobFile)
+
+# Whitelist internationalisation and normalisation
+ModuleSecurityInfo('plone.i18n.normalizer.interfaces').declarePublic('IUserPreferredURLNormalizer')
