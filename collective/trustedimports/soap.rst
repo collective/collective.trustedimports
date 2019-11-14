@@ -69,6 +69,46 @@ ValueError: URL https://www.w3schools.com/Xml/tempconvert.asmx?WSDL is not allow
 >>> del os.environ["SAFEIMPORTS_URL_BLACKLIST"]
 
 
+If we define a url allowlist environment variable, we can block all urls except for those in the allowlist
+
+>>> import os
+
+We should be able to open a url defined in the allowlist
+>>> os.environ["SAFEIMPORTS_URL_ALLOWLIST"] = "https://www.w3schools.com/Xml/tempconvert.asmx?WSDL"
+>>> teval("from zeep import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL')")
+<zeep.client.Client ...>
+
+But we should not have access to a URL not included on the allowlist
+>>> teval("from zeep import Client;return Client('https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl')")
+Traceback (most recent call last):
+...
+ValueError: URL https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl is not allowed to be accessed. URL is outside of allowlist
+
+>>> del os.environ["SAFEIMPORTS_URL_ALLOWLIST"]
+
+
+We should also be able to specify a wildcard to allow multile URLs from the same domain
+>>> os.environ["SAFEIMPORTS_URL_ALLOWLIST"] = "https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap*"
+>>> teval("from zeep import Client;return Client('https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl')")
+<zeep.client.Client ...>
+>>> teval("from zeep import Client;return Client('https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap_header.wsdl')")
+<zeep.client.Client ...>
+
+But we should not be able to access URLs from that domain which aren't included in the wildcard
+>>> teval("from zeep import Client;return Client('https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/http.wsdl')")
+Traceback (most recent call last):
+...
+ValueError: URL https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/http.wsdl is not allowed to be accessed. URL is outside of allowlist
+
+And we still shouldn't be able to access URLs outside of that domain
+>>> teval("from zeep import Client;return Client('https://www.w3schools.com/Xml/tempconvert.asmx?WSDL')")
+Traceback (most recent call last):
+...
+ValueError: URL https://www.w3schools.com/Xml/tempconvert.asmx?WSDL is not allowed to be accessed. URL is outside of allowlist
+
+>>> del os.environ["SAFEIMPORTS_URL_ALLOWLIST"]
+
+
 We can import exceptions too
 
 >>> teval("from zeep.exceptions import Error")
