@@ -33,7 +33,7 @@ URL Restrictions
 
 *WARNING: The urls referenced in a downloaded WSDL are not currently checked for safety.*
 
-If we use the url blacklist we can prevent certain urls being accessed
+If we define a url blacklist environment variable, we can allow all urls to be access except for those on the blacklist
 
 >>> import os
 >>> os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "www.w3schools.com;/*.asmx"
@@ -52,6 +52,11 @@ We cann't open connection to URL wildcard in blacklist
 Traceback (most recent call last):
 ...
 ValueError: URL http://www.dneonline.com/calculator.asmx?WSDL is not allowed to be accessed
+
+However, we can open a connection to a URL not in the blacklist
+
+>>> teval("from zeep import Client;return Client('https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl')")
+<zeep.client.Client ...>
 
 'create_service' has restricted urls
 
