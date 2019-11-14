@@ -109,6 +109,15 @@ ValueError: URL https://www.w3schools.com/Xml/tempconvert.asmx?WSDL is not allow
 >>> del os.environ["SAFEIMPORTS_URL_ALLOWLIST"]
 
 
+If both a blacklist and an allowlist are defined, URLs on the blacklist should take priority over URLs on the allowlist
+>>> os.environ["SAFEIMPORTS_URL_ALLOWLIST"] = "https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap*"
+>>> os.environ["SAFEIMPORTS_URL_BLACKLIST"] = "https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl"
+>>> teval("from zeep import Client;return Client('https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl')")
+Traceback (most recent call last):
+...
+ValueError: URL https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl is not allowed to be accessed. URL is in the blacklist
+
+
 We can import exceptions too
 
 >>> teval("from zeep.exceptions import Error")
