@@ -117,6 +117,9 @@ Traceback (most recent call last):
 ...
 ValueError: URL https://raw.githubusercontent.com/mvantellingen/python-zeep/master/tests/wsdl_files/soap.wsdl is not allowed to be accessed. URL is in the blacklist
 
+>>> del os.environ["SAFEIMPORTS_URL_ALLOWLIST"]
+>>> del os.environ["SAFEIMPORTS_URL_BLACKLIST"]
+
 
 We can import exceptions too
 
