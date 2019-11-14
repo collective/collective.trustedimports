@@ -32,7 +32,7 @@ or for a single object
 
 You can also add a CSRF token to URLs
 
->>> teval("from plone.protect.utils import addTokenToUrl"")
+>>> teval("from plone.protect.utils import addTokenToUrl")
 
 plone.app.textfield
 -------------------
