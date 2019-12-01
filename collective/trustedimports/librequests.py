@@ -1,3 +1,4 @@
+from collective.trustedimports.util import wrap_protected, is_url_allowed
 from AccessControl import (
     allow_class,
     ModuleSecurityInfo,
@@ -5,6 +6,6 @@ from AccessControl import (
 
 import requests
 
-ModuleSecurityInfo("requests").declarePublic("get")
-ModuleSecurityInfo("requests").declarePublic("post")
+wrap_protected(requests.get, lambda url: is_url_allowed(url))
+wrap_protected(requests.post, lambda url: is_url_allowed(url))
 allow_class(requests.models.Response)
