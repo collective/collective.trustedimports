@@ -20,6 +20,7 @@
     <include zcml:condition="installed pystache" package=".pystache"  />
     <include zcml:condition="installed phonenumbers" package=".phonenumbers"  />
     <include zcml:condition="installed zeep" package=".soap"  />
+    <include zcml:condition="installed docxtpl" package=".docx"  />
     <include package=".url"  />
 
 </configure>
