@@ -14,6 +14,7 @@ from zope.component import eventtesting
 from zope.component import provideAdapter
 from zope.component import testing
 from zope.interface import Interface
+from plone import api
 import doctest
 import unittest
 import collective.trustedimports
@@ -173,7 +174,7 @@ def test_suite():
                 optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS,
                 setUp=setUp,
                 tearDown=testing.tearDown,
-                globs=dict(teval=teval),
+                globs=dict(teval=teval, IS_PLONE_5=api.env.plone_version().startswith('5')),
             ),
         )
 
