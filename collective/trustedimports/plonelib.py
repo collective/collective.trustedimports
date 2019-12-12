@@ -59,5 +59,7 @@ InitializeClass(plone.namedfile.file.NamedBlobFile)
 
 # Whitelist internationalisation and normalisation
 from plone.i18n.normalizer.adapters import UserPreferredURLNormalizer
+from plone.i18n.normalizer import idnormalizer
 ModuleSecurityInfo('plone.i18n.normalizer.interfaces').declarePublic('IUserPreferredURLNormalizer')
 allow_class(UserPreferredURLNormalizer)
+allow_class(idnormalizer)
