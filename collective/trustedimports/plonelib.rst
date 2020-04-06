@@ -2,6 +2,7 @@ Plonelib
 ========
 
 #TODO: these should be moved into Plone itself
+>>> import doctest
 
 
 plone.subrequest
@@ -28,11 +29,17 @@ It's possible to disable CSRF protection on a request
 
 or for a single object
 
->>> teval("from plone.protect.utils import safeWrite")
+>>> if IS_PLONE_5:
+...     teval("from plone.protect.utils import safeWrite")
+... else:
+...     doctest.SKIP = True
 
 You can also add a CSRF token to URLs
 
->>> teval("from plone.protect.utils import addTokenToUrl"")
+>>> if IS_PLONE_5:
+...     teval("from plone.protect.utils import addTokenToUrl")
+... else:
+...     doctest.SKIP = True
 
 plone.app.textfield
 -------------------
