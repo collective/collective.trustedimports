@@ -7,6 +7,7 @@ Changelog
 - Fixed test suite [jeffersonbledsoe]
 - Added `plone.protect.utils.addTokenToUrl` to allowed imports [jeffersonbledsoe]
 - Added plone protection to allowed imports for disabling CSRF checking [djay]
+- Added `collective.taskqueue` to allowed imports [djay
 - Added `urllib` and `urlparse` to allowed imports [nngu6036]
 - Fixed `zeep.bind` and `zeep.create_service` now being allowed [nngu6036]
 - Added `zeep` to allowed imports for SOAP support [nngu6036]
