@@ -5,7 +5,7 @@ I can import icalendar and it's classes
 
 >>> teval("import icalendar")
 
->>> teval("from icalendar import Calendar, Event")
+>>> teval("from icalendar import Calendar, Event, Todo, Journal, FreeBusy, Timezone, TimezoneStandard, TimezoneDaylight, Alarm")
 
 I can construct a new Calendar
 
