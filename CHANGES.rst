@@ -18,6 +18,7 @@ Changelog
 - Added `email.encoders.encode_base64` and `email.encoders` to allowed imports [instification]
 - switched to using `z3c.autoinclude` to ensure security gets loaded after others [djay]
 - add utils helper to monkey patch methods that should only be used outside of restricted python [djay]
+- Added `icalendar` to list of allowed modules [jeffersonbledsoe]
 
 
 0.1 (unreleased)
