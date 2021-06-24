@@ -4,6 +4,7 @@ Changelog
 0.2 (unreleased)
 ----------------
 - Added Plone URL normalisers to allowed imports [jeffersonbledsoe]
+- Added `mimetype.guess_type` to allowed imports [jeffersonbledsoe]
 - Fixed test suite [jeffersonbledsoe]
 - Added `plone.protect.utils.addTokenToUrl` to allowed imports [jeffersonbledsoe]
 - Added plone protection to allowed imports for disabling CSRF checking [djay]
