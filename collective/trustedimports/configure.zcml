@@ -16,6 +16,7 @@
     <include zcml:condition="installed collective.taskqueue" package=".collective_taskqueue"  />
 
     <include zcml:condition="installed defusedxml" package=".defusedxml"  />
+    <include zcml:condition="installed icalendar" package=".libicalendar"  />
     <include zcml:condition="installed lxml" package=".lxml"  />
     <include zcml:condition="installed pystache" package=".pystache"  />
     <include zcml:condition="installed phonenumbers" package=".phonenumbers"  />

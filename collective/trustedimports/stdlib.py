@@ -90,3 +90,6 @@ whitelist_module('time')
 
 # formatdate
 ModuleSecurityInfo('email.Utils').declarePublic('formatdate')
+
+# mimetypes
+ModuleSecurityInfo("mimetypes").declarePublic("guess_type")
