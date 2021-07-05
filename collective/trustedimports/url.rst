@@ -37,5 +37,3 @@ We can use these functions in system python
 >>> from urlparse import urljoin
 >>> urljoin('http://www.cwi.nl/%7Eguido/Python.html', 'FAQ.html')
 'http://www.cwi.nl/%7Eguido/FAQ.html'
-
-
