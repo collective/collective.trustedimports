@@ -66,6 +66,7 @@ setup(
             'plone.api',
             'collective.taskqueue',
             'docxtpl',
+            'html2text'
         ],
     },
     entry_points="""
