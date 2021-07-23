@@ -23,4 +23,6 @@
     <include zcml:condition="installed zeep" package=".soap"  />
     <include package=".url"  />
 
+    <!-- External packages  -->
+    <include zcml:condition="installed html2text" package=".libhtml2text"  />
 </configure>
