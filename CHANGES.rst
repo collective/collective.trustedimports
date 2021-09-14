@@ -20,6 +20,7 @@ Changelog
 - add utils helper to monkey patch methods that should only be used outside of restricted python [djay]
 - Added `icalendar` to list of allowed modules [jeffersonbledsoe]
 - Added `html2text` to list of allowed modules [jeffersonbledsoe]
+- Added `pytz` and `plone.app.event.base.default_timezone` to list of allowed modules #29 [jeffersonbledsoe]
 
 
 0.1 (unreleased)
