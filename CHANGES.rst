@@ -19,7 +19,8 @@ Changelog
 - switched to using `z3c.autoinclude` to ensure security gets loaded after others [djay]
 - add utils helper to monkey patch methods that should only be used outside of restricted python [djay]
 - Added `icalendar` to list of allowed modules [jeffersonbledsoe]
-- Add environment variable for allowing only specific URLs [JeffersonBledsoe]
+- Added `html2text` to list of allowed modules [jeffersonbledsoe]
+- Added `pytz` and `plone.app.event.base.default_timezone` to list of allowed modules #29 [jeffersonbledsoe]
 
 
 0.1 (unreleased)
