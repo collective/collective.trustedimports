@@ -20,6 +20,7 @@ Changelog
 - add utils helper to monkey patch methods that should only be used outside of restricted python [djay]
 - Added `icalendar` to list of allowed modules [jeffersonbledsoe]
 - Added `html2text` to list of allowed modules [jeffersonbledsoe]
+- Add environment variable for allowing only specific URLs [JeffersonBledsoe]
 
 
 0.1 (unreleased)
