@@ -67,3 +67,11 @@ Usecase: Access a blob files data from restricted python
 
 plone.namedfile.file.NamedBlobFile
 
+plone.app.event
+---------------
+
+I import default_timezone
+
+>>> from plone.app.event.base import default_timezone
+>>> default_timezone
+<function default_timezone at ...
