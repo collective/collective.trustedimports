@@ -1,3 +1,4 @@
+from collective.trustedimports.util import whitelist_module
 from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
@@ -63,3 +64,6 @@ from plone.i18n.normalizer import idnormalizer
 ModuleSecurityInfo('plone.i18n.normalizer.interfaces').declarePublic('IUserPreferredURLNormalizer')
 allow_class(UserPreferredURLNormalizer)
 allow_class(idnormalizer)
+
+# plone.app.event
+ModuleSecurityInfo('plone.app.event.base').declarePublic('default_timezone')

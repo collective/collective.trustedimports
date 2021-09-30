@@ -21,6 +21,7 @@ Changelog
 - Added `icalendar` to list of allowed modules [jeffersonbledsoe]
 - Added `html2text` to list of allowed modules [jeffersonbledsoe]
 - Add environment variable for allowing only specific URLs [JeffersonBledsoe]
+- Added `pytz` and `plone.app.event.base.default_timezone` to list of allowed modules #29 [jeffersonbledsoe]
 
 
 0.1 (unreleased)
