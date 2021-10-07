@@ -22,6 +22,7 @@ Changelog
 - Added `html2text` to list of allowed modules [jeffersonbledsoe]
 - Add environment variable for allowing only specific URLs [JeffersonBledsoe]
 - Added `pytz` and `plone.app.event.base.default_timezone` to list of allowed modules #29 [jeffersonbledsoe]
+- Added `requests` to the list of allowed modules #23 [JeffersonBledsoe]
 
 
 0.1 (unreleased)
