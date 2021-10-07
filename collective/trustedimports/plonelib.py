@@ -1,3 +1,4 @@
+from collective.trustedimports.util import whitelist_module
 from AccessControl import allow_class, ModuleSecurityInfo, ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from Products.PythonScripts.Utility import allow_module
@@ -14,6 +15,7 @@ portal.declarePublic('get_tool')
 # Whitelist plone.protect
 ModuleSecurityInfo('plone.protect.utils').declarePublic('safeWrite')
 ModuleSecurityInfo('plone.protect.interfaces').declarePublic('IDisableCSRFProtection')
+ModuleSecurityInfo('plone.protect.utils').declarePublic('addTokenToUrl')
 
 
 # RichTextValue
@@ -55,3 +57,13 @@ sec_NamedBlobFile.declarePrivate('_setData')
 sec_NamedBlobFile.setDefaultAccess(1)
 sec_NamedBlobFile.apply(plone.namedfile.file.NamedBlobFile)
 InitializeClass(plone.namedfile.file.NamedBlobFile)
+
+# Whitelist internationalisation and normalisation
+from plone.i18n.normalizer.adapters import UserPreferredURLNormalizer
+from plone.i18n.normalizer import idnormalizer
+ModuleSecurityInfo('plone.i18n.normalizer.interfaces').declarePublic('IUserPreferredURLNormalizer')
+allow_class(UserPreferredURLNormalizer)
+allow_class(idnormalizer)
+
+# plone.app.event
+ModuleSecurityInfo('plone.app.event.base').declarePublic('default_timezone')
