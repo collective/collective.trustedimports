@@ -24,4 +24,6 @@
     <include zcml:condition="installed docxtpl" package=".docx"  />
     <include package=".url"  />
 
+    <!-- External packages  -->
+    <include zcml:condition="installed html2text" package=".libhtml2text"  />
 </configure>

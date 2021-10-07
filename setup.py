@@ -65,6 +65,7 @@ setup(
             'Plone',
             'plone.api',
             'collective.taskqueue',
+            'html2text',
             'docxtpl',
         ],
     },
