@@ -78,3 +78,19 @@ Traceback (most recent call last):
 ...
 Unauthorized: import of 'os' is unauthorized
 
+mimetypes
+----
+We can import the guess_type function
+>>> teval("from mimetypes import guess_type")
+
+But the other functions are not allowed
+
+>>> teval("from mimetypes import add_type")
+Traceback (most recent call last):
+...
+Unauthorized: You are not allowed to access 'add_type' in this context
+
+>>> teval("import mimetypes; mimetypes.add_type('application/wasm','.wasm')")
+Traceback (most recent call last):
+...
+Unauthorized: You are not allowed to access 'add_type' in this context
