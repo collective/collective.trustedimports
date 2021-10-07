@@ -64,36 +64,31 @@ def is_url_allowed(url=None, uri=None, link=None):
 
     raise ValueError("URL %s is not allowed to be accessed. URL is outside of allowlist" % url)
 
-def wrap_protected(function, *is_alloweds):
+def wrap_protected(method, *is_alloweds):
     """
-    Will wrap a function or method in a way that will raise an exception if the test fails
-      and this function was called directly from restricted python.
-    `is_allowed` can be a callable taking arguments from the original function arguments
+    Will wrap a method in a way that will raise an exception of the test fails and this method was
+    called directly from restricted python.
+    `is_allowed` can be a callable taking arguments from the original methods arguments
     """
 
-    if not inspect.ismethod(function) and not inspect.isfunction(function):
-        raise ValueError("function must be a function or method")
-    if function.__name__ == 'not_allowed':
+    if not inspect.ismethod(method):
+        raise ValueError("method must be a method")
+    if method.__name__ == 'not_allowed':
         # don't mokey patch twice
         return
 
-    parent = None
-    if hasattr(function, "im_class"):
-        parent = function.im_class
-    else:
-        parent = inspect.getmodule(function)
+    klass = method.im_class
 
-    original = getattr(parent, function.__name__)
-
+    original = getattr(klass, method.__name__)
     if not is_alloweds:
         def not_allowed(*args, **kwargs):
             if restricted_python_call():
                 # TODO: change to a better exception
-                raise ValueError("function '%s' not supported in a restricted python call"%function.__name__)
+                raise ValueError("Method '%s' not supported in a restricted python call"%method.__name__)
             return original.__call__(*args, **kwargs)
 
     else:
-        names, args_name, kwargs_name, defaults = inspect.getargspec(function)
+        names, args_name, kwargs_name, defaults = inspect.getargspec(method)
         def not_allowed(*args, **kwargs):
             args_name = list(OrderedDict.fromkeys(names + kwargs.keys()))
             args_dict = OrderedDict(list(itertools.izip(args_name, args)) + list(kwargs.iteritems()))
@@ -108,6 +103,5 @@ def wrap_protected(function, *is_alloweds):
             return original.__call__(*args, **kwargs)
 
 
-    
-    not_allowed.__name__ = function.__name__
-    setattr(parent, function.__name__, not_allowed)
+    not_allowed.__name__ = method.__name__
+    setattr(klass, method.__name__, not_allowed)
