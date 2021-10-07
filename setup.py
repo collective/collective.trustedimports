@@ -51,7 +51,7 @@ setup(
           'zope.security',
           'zope.configuration',
           'zope.untrustedpython',
-
+        'requests',
     ],
     extras_require={
         'test': [

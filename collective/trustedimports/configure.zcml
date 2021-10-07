@@ -25,4 +25,5 @@
 
     <!-- External packages  -->
     <include zcml:condition="installed html2text" package=".libhtml2text"  />
+    <include zcml:condition="installed requests" package=".librequests"  />
 </configure>
