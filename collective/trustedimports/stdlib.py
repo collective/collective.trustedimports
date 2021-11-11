@@ -9,16 +9,8 @@ from util import whitelist_module
 
 
 
-# Allow RE in restricted python. Based on collective.localfunctions
-# by Steve McMahon
-import re
-#allow_module('re')
-ModuleSecurityInfo('re').declarePublic(
-    'compile', 'findall', 'match', 'search', 'split', 'sub', 'subn', 'error',
-    'I', 'L', 'M', 'S', 'X')
-allow_type(type(re.compile('')))
-allow_type(type(re.match('x', 'x')))
-
+# Allow RE in restricted python
+ModuleSecurityInfo('re').setDefaultAccess('allow')
 
 # Random
 #allow_module('random')
